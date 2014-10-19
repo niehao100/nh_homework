@@ -2,7 +2,7 @@
 #include		<stdlib.h>
 
 #define CrosLNode struct crosLNode
-#define  ElemType long
+#define  ElemType int
 struct crosLNode		//节点的定义
 {
 	int row,column;
@@ -25,20 +25,19 @@ void CreateClist(int count_size,CrosLNode** Clist)
 
 int InsertClist(CrosLNode** Clist,CrosLNode * newnode,ElemType val,int row,int column){
 	CrosLNode* tmp=NULL,*now=NULL;
-	if(!val) return 0;
 	newnode->row=row;
 	newnode->column=column;
 	newnode->val=val;
 	tmp=Clist[row]->right;
 	now=Clist[row];
-	for(;tmp!=Clist[row]||(row>now->row&&row<tmp->row);){
+	for(;tmp!=Clist[row]&&(column>tmp->column);){
 		now=tmp;
 		tmp=now->right;
 	}
 	now->right=newnode;
 	tmp=Clist[column]->down;
 	now=Clist[column];
-	for(;tmp!=Clist[column]||(column>now->column&&column<tmp->column);){
+	for(;tmp!=Clist[column]&&(row>tmp->row);){
 		now=tmp;
 		tmp=now->down;
 	}
@@ -71,7 +70,7 @@ void PrintClist(CrosLNode** Clist,int count){
 		for(;tmp!=Clist[i];){
 			now=tmp;
 			if(now->val)
-			printf("%d %d %ld\n",now->row,now->column,now->val);
+			printf("%d %d %d\n",now->row,now->column,now->val);
 			tmp=now->right;
 		}
 	}
@@ -80,7 +79,7 @@ void PrintClist(CrosLNode** Clist,int count){
 int main(void){
 	void CreateClist(int,CrosLNode**),PrintClist(CrosLNode**,int),ClearClist(CrosLNode**,int);
 	int row=0,column=0,count_size=0,count_not_zero=0,i=42,j=42,InsertClist(CrosLNode**,CrosLNode*,ElemType,int,int);
-	long	k=42,val=0,* con;//存储一行或一列
+	ElemType	k=42,val=0,* con;//存储一行或一列
 	CrosLNode ** ClistA,** ClistB,** ClistC,**ClistD;
 	CrosLNode* node,*tmp=NULL,*now=NULL;
 	scanf("%d",&row);
@@ -91,17 +90,20 @@ int main(void){
 	ClistB=(CrosLNode**)malloc(count_size*sizeof(CrosLNode*));
 	ClistC=(CrosLNode**)malloc(count_size*sizeof(CrosLNode*));
 	ClistD=(CrosLNode**)malloc(count_size*sizeof(CrosLNode*));
-	con=(long*)malloc(count_size*sizeof(long));for(j=0;j<count_size;j++) con[j]=0;
+	con=(ElemType*)malloc(count_size*sizeof(ElemType));for(j=0;j<count_size;j++) con[j]=0;
 	CreateClist(count_size,ClistA);
 	CreateClist(count_size,ClistB);
 	CreateClist(count_size,ClistC);
 	CreateClist(count_size,ClistD);
-	for(i=0;i<count_not_zero;i++){
+	for(i=0;i<count_not_zero;){
 		scanf("%d",&row);
 		scanf("%d",&column);
-		scanf("%ld",&val);
+		scanf("%d",&val);
+		if(val){
 		node =(CrosLNode*)malloc(sizeof(CrosLNode));
 		InsertClist(ClistA,node,val,row,column);
+		i++;
+		}
 	}
 
 	//转置
