@@ -93,14 +93,39 @@ void BackBTree(Tnode* root){
     else printf("# "); 
 }
 
+
+int BTreeDepth(Tnode*root)
+{
+    if(root == NULL)
+        return 0;
+    //计算左子树深度
+    int dpt1 = BTreeDepth(root->Tleft);
+    //计算右子树深度
+    int dpt2 = BSTreeDepth(root->Tright);
+    //返回树的深度
+    if(dpt1 > dpt2)
+        return dpt1+1;
+    else
+        return dpt2+1;
+}
+
+int compare(Tnode* a,Tnode* b){
+    if(a->count!=b->count) return 0;
+    if(compare(a
+}
+
 int main(void){
-    Tnode* CreateTree(),* root=CreateTree();
+    Tnode* CreateTree(),* root=CreateTree()，search=CreateTree();
 		void InBTree(Tnode*), PreBTree(Tnode* ),BackBTree(Tnode*);
+    int deep=BTreeDepth(search);
     PreBTree(root);
     printf("\n");
     InBTree(root);
     printf("\n");
     BackBTree(root);
     printf("\n");
+    printf("%d\n", BTreeDepth(root));
+    
     return 0;
+    
 }
