@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 //二叉搜索树
-#define Tnode sturct tnode
+#define Tnode struct tnode
+
 typedef int Elemtype;
 
 struct tnode{
@@ -10,39 +11,37 @@ struct tnode{
 		Tnode* Tleft;
 		Tnode* Tright;
 		Tnode* parent;
-}
+};
 
 Tnode* CreateTree(); //建树   
-Tnode* insert(Tnode* root, DataType data);//插入节点   
-void InBTree(Tnode* root); //中序遍历   
-void PreBTree(Tnode* root); //先序遍历   
-void PostBTree(BTree root);//后序遍历   
-
+Tnode* insert(Tnode* root, Elemtype data);//插入节点   
+ 
 Tnode* CreateTree(){  
-    BTree root = NULL;  
-    ElemType temp = 0; 
+    Tnode* root = NULL, *newNode = (Tnode*)malloc(sizeof(Tnode));   
+    Elemtype temp = 0; 
     int i=0,count=0;
     scanf("%d", &count); 
     if(count==0) return root;
     scanf("%d", &temp);
-    newNode->data = tmp ;
+    newNode->data = temp ;
     newNode->count = 1;
     newNode->Tleft = NULL;  
     newNode->Tright = NULL;
+		root = newNode;
     for(i=1;i<count;i++){  
-        root = insert(root, temp);    
         scanf("%d", &temp);    
+        insert(root, temp);    
     }  
       
     return root;   
 } 
 
-Tnode* insert(BTree root, Elemtype data){  
+Tnode* insert(Tnode* root, Elemtype data){  
     Tnode* ptr = root;  
     Tnode* tempNode;   
-    Tnode* newNode = (BTree)malloc(sizeof(struct BTree));   
+    Tnode* newNode = (Tnode*)malloc(sizeof(Tnode));   
     //初始化元素
-    ewNode->data = data ;  
+    newNode->data = data ;  
     newNode->count = 1;
     newNode->Tleft = NULL;  
     newNode->Tright = NULL;  
@@ -58,7 +57,7 @@ Tnode* insert(BTree root, Elemtype data){
               
     }   
           
-     if(tempNode->data >= data){  
+     if(data < tempNode->data ){  
         tempNode->Tleft =  newNode;   
         }else{  
            tempNode->Tright =  newNode;   
@@ -85,21 +84,23 @@ void PreBTree(Tnode* root){
     } 
     else printf("# "); 
 }   
-void BackBTree(BTree root){  
+void BackBTree(Tnode* root){  
     if(root != NULL){  
         BackBTree(root->Tleft);   
-        BcakBTree(root->Tright);  
+        BackBTree(root->Tright);  
         printf("%d ", root->data);  
     }  
     else printf("# "); 
 }
 
 int main(void){
-    Tnode* root=CreateTree();
+    Tnode* CreateTree(),* root=CreateTree();
+		void InBTree(Tnode*), PreBTree(Tnode* ),BackBTree(Tnode*);
     PreBTree(root);
     printf("\n");
     InBTree(root);
     printf("\n");
-    BackTree(root);
+    BackBTree(root);
+    printf("\n");
     return 0;
 }
