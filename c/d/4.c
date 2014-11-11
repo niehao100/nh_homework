@@ -68,4 +68,37 @@ Tnode* insert(BTree root, Elemtype data){
     return root;   
 } 
 
+void InBTree(Tnode* root){  
+    if(root != NULL){  
+        InBTree(root->Tleft);   
+        printf("%d ", root->data);   
+        InBTree(root->Tright);  
+    }  
+    else printf("# "); 
+}  
 
+void PreBTree(Tnode* root){  
+    if(root != NULL){  
+        printf("%d ", root->data);   
+        PreBTree(root->Tleft);   
+        PreBTree(root->Tright);  
+    } 
+    else printf("# "); 
+}   
+void BackBTree(BTree root){  
+    if(root != NULL){  
+        BackBTree(root->Tleft);   
+        BcakBTree(root->Tright);  
+        printf("%d ", root->data);  
+    }  
+}
+
+int main(void){
+    Tnode* root=CreateTree();
+    PreBTree(root);
+    printf("\n");
+    InBTree(root);
+    printf("\n");
+    BackTree(root);
+    return 0;
+}
