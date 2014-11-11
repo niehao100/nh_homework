@@ -91,6 +91,7 @@ void BackBTree(BTree root){
         BcakBTree(root->Tright);  
         printf("%d ", root->data);  
     }  
+    else printf("# "); 
 }
 
 int main(void){
