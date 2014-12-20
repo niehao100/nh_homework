@@ -1,0 +1,9 @@
+Book State: 1 19
+Book Info: I712.8_FB34 The_wonderful_wizard_of_oz Denslow ISBN7560052452 novel Cambridge_Press 1900/05/17
+Book State: 2
+Book Info: I565.88_FS13 The_little_prince Antoine ISBN0156528207 novel Tsinghua_University_Press 1943/12
+Book State: 0
+Book Info: F016_FM27_2014 Principles_of_microeconomics Mankiw ISBN9787040290134 economics Higher_education_press 2014/6
+-1
+Book State: 0
+Book Info: I565.88_FS13 The_little_prince Antoine ISBN0156528207 novel Tsinghua_University_Press 1943/12
