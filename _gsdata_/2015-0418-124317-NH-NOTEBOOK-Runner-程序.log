@@ -1,0 +1,31 @@
+2015-04-18 12:43:18: -- Analysis Started by On File Change 1st Full Analyze, Under Runner
+2015-04-18 12:43:18: Give up on SetFileOwner: file=//niehao.xicp.net/niehao/文档/program/_gsdata_/lock.gsl smb=1 error=WinFileSys::SetFileOwnerIfYouCan: This security ID may not be assigned as the owner of this object.  (error 1307)
+2015-04-18 12:43:18: 变更：21， 冲突：， 复制时间：， 复制状态：/， 错误： , All: 50
+2015-04-18 12:43:18: Left to Right: Copy File: 21 
+2015-04-18 12:43:18: == Sync Started by On File Change 1st Full Analyze, Under Runner
+2015-04-18 12:43:19: 新建复制 'E:/program/cpp/ghw_2014_Su/图书管理系统/图书管理系统.docx' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/图书管理系统/图书管理系统.docx'
+2015-04-18 12:43:21: 新建复制 'E:/program/cpp/ghw_2014_Su/图书管理系统/图书管理系统.pdf' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/图书管理系统/图书管理系统.pdf'
+2015-04-18 12:43:21: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/gw1.exe' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/gw1.exe'
+2015-04-18 12:43:21: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/main.cpp' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/main.cpp'
+2015-04-18 12:43:21: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/md5.cpp' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/md5.cpp'
+2015-04-18 12:43:21: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/md5.h' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/md5.h'
+2015-04-18 12:43:21: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/stu.dat' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/stu.dat'
+2015-04-18 12:43:22: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/stu.h' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/stu.h'
+2015-04-18 12:43:22: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/学生成绩管理系统.docx' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/学生成绩管理系统.docx'
+2015-04-18 12:43:24: 新建复制 'E:/program/cpp/ghw_2014_Su/学生成绩管理系统/学生成绩管理系统.pdf' -> '//niehao.xicp.net/niehao/文档/program/cpp/ghw_2014_Su/学生成绩管理系统/学生成绩管理系统.pdf'
+2015-04-18 12:43:24: 新建复制 'E:/program/cpp/数字逻辑/QM/BaoShurui.txt' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/BaoShurui.txt'
+2015-04-18 12:43:24: 新建复制 'E:/program/cpp/数字逻辑/QM/Main.cpp' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/Main.cpp'
+2015-04-18 12:43:25: 新建复制 'E:/program/cpp/数字逻辑/QM/Main1.cpp' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/Main1.cpp'
+2015-04-18 12:43:25: 新建复制 'E:/program/cpp/数字逻辑/QM/QM2013011280.hpp' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/QM2013011280.hpp'
+2015-04-18 12:43:25: 新建复制 'E:/program/cpp/数字逻辑/QM/QM算法上机作业.docx' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/QM算法上机作业.docx'
+2015-04-18 12:43:25: 新建复制 'E:/program/cpp/数字逻辑/QM/QM算法上机作业.pdf' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/QM算法上机作业.pdf'
+2015-04-18 12:43:26: 新建复制 'E:/program/cpp/数字逻辑/QM/ReadMe.txt' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/ReadMe.txt'
+2015-04-18 12:43:26: 新建复制 'E:/program/cpp/数字逻辑/QM/TestCode.hpp' -> '//niehao.xicp.net/niehao/文档/program/cpp/数字逻辑/QM/TestCode.hpp'
+2015-04-18 12:43:26: 新建复制 'E:/program/python/test.py' -> '//niehao.xicp.net/niehao/文档/program/python/test.py'
+2015-04-18 12:43:26: 新建复制 'E:/program/README.md' -> '//niehao.xicp.net/niehao/文档/program/README.md'
+2015-04-18 12:43:26: 新建复制 'E:/program/tunet.sh' -> '//niehao.xicp.net/niehao/文档/program/tunet.sh'
+2015-04-18 12:43:26: ===== ：同步完毕。时间：00:00:08，速度： 504 KB/s =====, 项目同步未必： 21，错误： 
+2015-04-18 12:43:27: -- Analysis Started by On File Change PostSync Re-Analyze, Under Runner
+2015-04-18 12:43:28: 变更：， 冲突：， 复制时间：， 复制状态：/， 错误： , All: 50
+2015-04-18 12:43:28: ----- ：分析已结束。 历时 00:00:10， 速度： 5 个文件/秒 -----
+2015-04-18 12:43:28: 
