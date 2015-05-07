@@ -1,5 +1,6 @@
-#include <stdio.h >
-#include <math.h >
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
 int Site[8];
 int Queen( int n, int QUEENS, int );
 
@@ -47,7 +48,7 @@ int Valid( int n )
 	{
 		if ( Site[i] == Site[n] )
 			return(0);
-		if ( abs( Site[i] - Site[n] ) == (n - i) )
+		if (abs(Site[i] - Site[n])== (n - i) )
 			return(0);
 	}
 	return(1);
