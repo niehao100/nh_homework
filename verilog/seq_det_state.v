@@ -15,7 +15,7 @@ parameter [2:0]
     SF=6;
 
 initial begin
-     out<=0;
+	 out<=0;
     c_s<=START;
     n_s<=START;
 end
@@ -64,7 +64,7 @@ always @(c_s) begin
                 n_s=SA;
             else n_s=SB;
         end 
-          default: n_s=START;
+		  default: n_s=START;
     endcase
 end
 
@@ -84,6 +84,4 @@ always @(c_s) begin
         default: state=3'b000;
     endcase
 end
-
-
 endmodule
