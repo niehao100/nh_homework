@@ -52,7 +52,7 @@ module Control(OpCode, Funct,
         (OpCode==0 || OpCode==6'h04)?0:1;
 
     assign ExtOp=
-        (OpCode==6'h09 || OpCode==6'h0b)?0:1;
+        (OpCode==6'h0c)?0:1;
 
     assign LuOp=
         (OpCode==6'h0f)?1:0;

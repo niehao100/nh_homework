@@ -71,6 +71,7 @@ module InstructionMemory(Address, Instruction);
             8'd16:    Instruction <= {6'h0,5'd4,5'd2,5'd2,5'd0,6'h20};
         //jr $ra
             8'd17:    Instruction <= {6'h0,5'd31,15'd0,6'h08};
+            
 			default: Instruction <= 32'h00000000;
 		endcase
 		
