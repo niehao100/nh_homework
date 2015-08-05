@@ -109,12 +109,12 @@ module recevier(in,clk,sig16,reset,out,rx_status,data);
 	end			
 endmodule
 
-module transmitter(clk,sig,reset,trans,tx_en,tx_status,out,count);
+module transmitter(clk,sig,reset,trans,tx_en,tx_status,out);
     input clk,sig,reset,tx_en;
     input [7:0] trans;
     reg [7:0] data;
 	reg enable;
-	output reg [3:0]count;
+	reg [3:0]count;
     output reg out;
 	output reg tx_status;
 	initial begin
