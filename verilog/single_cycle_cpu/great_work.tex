@@ -19,315 +19,315 @@
 \usepackage{multirow}
 \usepackage{enumerate}
 \lstset{numbers=left, %设置行号位置
-        numberstyle=\tiny, %设置行号大小
-        keywordstyle=\color{blue}, %设置关键字颜色
-        commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
-        frame=single, %设置边框格式
-        escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
-        breaklines, %自动折行
-        extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
-        xleftmargin=2em,xrightmargin=2em, aboveskip=1em, %设置边距
-        tabsize=4, %设置tab空格数
-        showspaces=false %不显示空格
-       }
+    numberstyle=\tiny, %设置行号大小
+    keywordstyle=\color{blue}, %设置关键字颜色
+    commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
+    frame=single, %设置边框格式
+    escapeinside=``, %逃逸字符(1左面的键)，用于显示中文
+    breaklines, %自动折行
+    extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+    xleftmargin=2em,xrightmargin=2em, aboveskip=1em, %设置边距
+    tabsize=4, %设置tab空格数
+    showspaces=false %不显示空格
+}
 
 \title{数字逻辑与处理器基础大作业}
 \author{聂浩~~ 无31~~ 2013011280}
 \begin{document}
 \maketitle
 \section{处理器结构}
-    \subsection{试回答以下问题：}
-    \begin {enumerate}[a)]
+\subsection{试回答以下问题：}
+\begin {enumerate}[a)]
              \item{由 RegDst 信号控制的多路选择器，输入 2 对应常数 31。 这里的 31 代表什么？在执行哪些指令时需要 RegDst 信号为 2？为什么？}
-            
-            答:31代表\$ra 寄存器，表示在\$ra 里写下返回地址。jal指令、和jalr指令，因为在执行这两条命令时需要把返回地址写入\$ra。
-            
-            \item{由 ALUSrc1 信号控制的多路选择器，输入 1 对应的指令[10-6]是什么？在执行哪些指令时需要 ALUSrc1 信号为 1？为什么？}
-    
-            答:偏移量。对应的指令是sll，srl，sra，因为它们需要确定移的位数。
-            \item{由 MemtoReg 信号控制的多路选择器，输入 2 对应的是什么？在执行哪些指令时需要MemtoReg 信号为 2？为什么？}
-    
-               答: 将下一条程序计数器+4之后的值写入内存。jal和jalr需要用到，因为它们需要把返回地址写入寄存器。
-    
-            \item{图中的处理器结构并没有 Jump 控制信号，取而代之的是 PCSrc 信号。 PCSrc 信号控制的多路选择器，输入 2 对应的是什么？在执行哪些指令时需要 PCSrc 信号为 2？为什么？}
-    
-               答: 将寄存器读出的值写入程序计数器。jr和halr需要，因为它们需要从寄存器中读出跳转的地址。
-    
-                \begin{table}[!hbp]
-            \centering
-            \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
-            \hline
-            &\rotatebox{90}{PCSrc[1:0]}&\rotatebox{90}{Branch}&\rotatebox{90}{RegWrite}&\rotatebox{90}{RegDst[1:0]}&\rotatebox{90}{MemRead}&\rotatebox{90}{MemWrite}&\rotatebox{90}{MemtoReg[1:0]}&\rotatebox{90}{ALUSrc1}&\rotatebox{90}{ALUSrc2}&\rotatebox{90}{ExtOp}&\rotatebox{90}{LuOp}\\
-            \hline
-            lw      &0&0&1&0&1&0&1&0&1&1&0\\
-            \hline
-            sw      &0&0&0&x&0&1&x&0&1&1&0\\
-            \hline
-            lui     &0&0&1&0&0&0&0&0&1&1&1\\
-            \hline
-            add     &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            addu    &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            sub     &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            subu    &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            addi    &0&0&1&0&0&0&0&0&1&1&0\\
-            \hline
-            addiu   &0&0&1&0&0&0&0&0&1&1&0\\
-            \hline
-            and     &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            or      &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            xor     &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            nor     &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            andi    &0&0&1&0&0&0&0&0&1&0&0\\
-            \hline
-            sll     &0&0&1&1&0&0&0&1&0&x&x\\
-            \hline
-            srl     &0&0&1&1&0&0&0&1&0&x&x\\
-            \hline
-            sra     &0&0&1&1&0&0&0&1&0&x&x\\
-            \hline
-            slt     &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            sltu    &0&0&1&1&0&0&0&0&0&x&x\\
-            \hline
-            slti    &0&0&1&0&0&0&0&0&1&1&0\\
-            \hline
-            sltiu   &0&0&1&0&0&0&0&0&1&1&0\\
-            \hline
-            beq     &0&1&0&x&0&0&x&0&0&1&0\\
-            \hline
-            j       &1&0&0&x&0&0&x&x&x&x&x\\
-            \hline
-            jal     &1&0&1&2&0&0&2&x&x&x&x\\
-            \hline
-            jr      &2&0&0&x&0&0&x&x&x&x&x\\
-            \hline
-            halr    &2&0&1&1&0&0&2&x&x&x&x\\
-            \hline
-            \end{tabular}
-        \caption{控制器真值表}
-        \label{ture_t}
-        \end{table}
-    \item{为什么需要 ExtOp 控制信号？什么情况下 ExtOp 信号为 1？什么情况下 ExtOp 信号为 0？}
-    
-             答:判断扩展时是否做补码处理。当为andi等与立即数位操作时为0，在其他有offset和imm的情况下为1。
-         \item {若想再多实现一条指令 nop（空指令），指令格式为全 0，需要如何修改处理器结构？}
 
-             答:不用修改，会直接执行sll指令。
-                
-        \end{enumerate}
-        \subsection{根据对各控制信号功能的理解，填写真值表\ref{ture_t}}
+                 答:31代表\$ra 寄存器，表示在\$ra 里写下返回地址。jal指令、和jalr指令，因为在执行这两条命令时需要把返回地址写入\$ra。
 
-\section{完成控制器}
-        \subsection{ CPU.v 实现了处理器的整体结构。 阅读 CPU.v，理解其实现方式。}
-        \subsection{Control.v 是控制器模块的代码。 完成 Control.v。}
+             \item{由 ALUSrc1 信号控制的多路选择器，输入 1 对应的指令[10-6]是什么？在执行哪些指令时需要 ALUSrc1 信号为 1？为什么？}
 
-        补充的代码为
-        	\begin{lstlisting}[language=verilog]
-// Your code below
-assign 	PCSrc[1:0]=
-    (OpCode == 6'h02 || OpCode==6'h03)?2'b01:
-    (OpCode==0&&(Funct==6'h08 || Funct==6'h09))?2'b10:0;
+                 答:偏移量。对应的指令是sll，srl，sra，因为它们需要确定移的位数。
+             \item{由 MemtoReg 信号控制的多路选择器，输入 2 对应的是什么？在执行哪些指令时需要MemtoReg 信号为 2？为什么？}
 
-assign Branch=
-    (OpCode== 6'h04)?1:0;
+                 答: 将下一条程序计数器+4之后的值写入内存。jal和jalr需要用到，因为它们需要把返回地址写入寄存器。
 
-assign RegWrite=
-    (OpCode== 6'h2b || OpCode== 6'h04 || OpCode==6'h02)?0:
-    (Funct == 6'h08 && OpCode==0)?0:1;
+             \item{图中的处理器结构并没有 Jump 控制信号，取而代之的是 PCSrc 信号。 PCSrc 信号控制的多路选择器，输入 2 对应的是什么？在执行哪些指令时需要 PCSrc 信号为 2？为什么？}
 
-assign RegDst=
-    (OpCode== 6'h03)?2'b10:
-    (OpCode== 6'h00)?2'b01:
-    2'b00;
+                 答: 将寄存器读出的值写入程序计数器。jr和halr需要，因为它们需要从寄存器中读出跳转的地址。
 
-assign MemRead=
-    (OpCode== 6'h23)?1:0;
+                 \begin{table}[!hbp]
+                     \centering
+                     \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+                         \hline
+                         &\rotatebox{90}{PCSrc[1:0]}&\rotatebox{90}{Branch}&\rotatebox{90}{RegWrite}&\rotatebox{90}{RegDst[1:0]}&\rotatebox{90}{MemRead}&\rotatebox{90}{MemWrite}&\rotatebox{90}{MemtoReg[1:0]}&\rotatebox{90}{ALUSrc1}&\rotatebox{90}{ALUSrc2}&\rotatebox{90}{ExtOp}&\rotatebox{90}{LuOp}\\
+                         \hline
+                         lw      &0&0&1&0&1&0&1&0&1&1&0\\
+                         \hline
+                         sw      &0&0&0&x&0&1&x&0&1&1&0\\
+                         \hline
+                         lui     &0&0&1&0&0&0&0&0&1&1&1\\
+                         \hline
+                         add     &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         addu    &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         sub     &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         subu    &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         addi    &0&0&1&0&0&0&0&0&1&1&0\\
+                         \hline
+                         addiu   &0&0&1&0&0&0&0&0&1&1&0\\
+                         \hline
+                         and     &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         or      &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         xor     &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         nor     &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         andi    &0&0&1&0&0&0&0&0&1&0&0\\
+                         \hline
+                         sll     &0&0&1&1&0&0&0&1&0&x&x\\
+                         \hline
+                         srl     &0&0&1&1&0&0&0&1&0&x&x\\
+                         \hline
+                         sra     &0&0&1&1&0&0&0&1&0&x&x\\
+                         \hline
+                         slt     &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         sltu    &0&0&1&1&0&0&0&0&0&x&x\\
+                         \hline
+                         slti    &0&0&1&0&0&0&0&0&1&1&0\\
+                         \hline
+                         sltiu   &0&0&1&0&0&0&0&0&1&1&0\\
+                         \hline
+                         beq     &0&1&0&x&0&0&x&0&0&1&0\\
+                         \hline
+                         j       &1&0&0&x&0&0&x&x&x&x&x\\
+                         \hline
+                         jal     &1&0&1&2&0&0&2&x&x&x&x\\
+                         \hline
+                         jr      &2&0&0&x&0&0&x&x&x&x&x\\
+                         \hline
+                         halr    &2&0&1&1&0&0&2&x&x&x&x\\
+                         \hline
+                     \end{tabular}
+                     \caption{控制器真值表}
+                     \label{ture_t}
+                 \end{table}
+             \item{为什么需要 ExtOp 控制信号？什么情况下 ExtOp 信号为 1？什么情况下 ExtOp 信号为 0？}
 
-assign MemWrite=
-    (OpCode== 6'h2b)?1:0;
+                 答:判断扩展时是否做补码处理。当为andi等与立即数位操作时为0，在其他有offset和imm的情况下为1。
+             \item {若想再多实现一条指令 nop（空指令），指令格式为全 0，需要如何修改处理器结构？}
 
-assign MemtoReg=
-    (OpCode== 6'h03 || Funct==6'h09)?2'b10:
-    (OpCode== 6'h23)?1:0;
+                 答:不用修改，会直接执行sll指令。
 
-assign ALUSrc1=
-    (OpCode==0 && (Funct==6'h02 || Funct==6'h03 || Funct==0))?1:0;
-assign ALUSrc2=
-    (OpCode==0 || OpCode==6'h04)?0:1;
+         \end{enumerate}
+         \subsection{根据对各控制信号功能的理解，填写真值表\ref{ture_t}}
 
-assign ExtOp=
-    (OpCode==6'h0c)?0:1;
+         \section{完成控制器}
+         \subsection{ CPU.v 实现了处理器的整体结构。 阅读 CPU.v，理解其实现方式。}
+         \subsection{Control.v 是控制器模块的代码。 完成 Control.v。}
 
-assign LuOp=
-    (OpCode==6'h0f)?1:0;
+         补充的代码为
+         \begin{lstlisting}[language=verilog]
+         // Your code below
+         assign 	PCSrc[1:0]=
+         (OpCode == 6'h02 || OpCode==6'h03)?2'b01:
+         (OpCode==0&&(Funct==6'h08 || Funct==6'h09))?2'b10:0;
 
-// Your code above
-    \end{lstlisting}
-        \subsection{ 阅读 InstructionMemory.   
-        v，根据注释理解指令存储器中的程序。这段程序执行足够长时间后会发生什么？此时寄存器\$a0~\$a3,
-        \$t0~\$t2,\$v0~\$v1 中的值应是多少？写出计算过程。注意理解有符号数、无符号数以及各
-        种进制表示的数之间的关系。如果已知某一时刻在某寄存器中存放着数 0xffffcfc7，能否判断出
-    它是有符号数还是无符号数？为什么？}
-            答:足够长的时间后会进入Loop: j Loop 死循环。
-            
-            ~~~~\$a0=0x00003039,~~~\$a1=0xffffd431,
-            
-            ~~~~\$a2=0xD4310000,~~~\$a3=0xffffd431,
-            
-            ~~~~\$t0=0xD4313039,~~~\$t1=0xfD431303,
-            
-            ~~~~\$t2=0xffffcfc7,~~~\$v0=1,\$v1=1.
-            
-            无法判断，因为无符号数和有符号数都可以存储为这样。
+         assign Branch=
+         (OpCode== 6'h04)?1:0;
 
-        \subsection  { 使用 ModelSim 等仿真软件进行仿真。 仿真顶层模块为 test\_cpu，这是一个 testbench，用于向 CPU 提供复位和时钟信号。 观察仿真结果中各寄存器和控制信号的变化。 回答以下问题：}
-        \begin{enumerate}[a)] 
-            \item{ PC 如何变化？}
+         assign RegWrite=
+         (OpCode== 6'h2b || OpCode== 6'h04 || OpCode==6'h02)?0:
+         (Funct == 6'h08 && OpCode==0)?0:1;
 
-              答:不断加4，到10000时跳变到11000，之后继续加4直到101100不再改变。
+         assign RegDst=
+         (OpCode== 6'h03)?2'b10:
+         (OpCode== 6'h00)?2'b01:
+         2'b00;
 
-            \item{Branch 信号在何时为 1？它引起了 PC 怎样的变化？}
+         assign MemRead=
+         (OpCode== 6'h23)?1:0;
 
-                答:400\~{}500ns。PC从10000跳变为11000而非10100.
+         assign MemWrite=
+         (OpCode== 6'h2b)?1:0;
 
-            \item{100\~{}200ns 期间，PC 是多少？对应的指令是哪条？此时\$a1 的值是多少？200\~{}300ns 期间\$a1 的值是多少？为什么会这样？下一条指令立即使用到了\$a1 的值，会出现错误吗？为什么？}
-    
-                答:0x00000004。对应的是addiu \$a1, \$zero, -11215。\$a1是0。200\~{}300ns
-                \$a1=0000\_0000\_0000\_0000\_1101\_0100\_0011\_0001。因为右十六位是-11215的补码。虽然仿真正确，但是可能会出现错误，因为regwrite是上升沿触发\$a1的值是在下一个时钟上升沿才改变的，而读取也是以下一个时钟上升沿读取的，立即使用可能会有冲突。
+         assign MemtoReg=
+         (OpCode== 6'h03 || Funct==6'h09)?2'b10:
+         (OpCode== 6'h23)?1:0;
 
-            \item{运行时间足够长之后（如 1100ns 时）寄存器\$a0~\$a3,\$t0~\$t2,\$v0~\$v1 中的值是多少？与你的预期是否一致？}
+         assign ALUSrc1=
+         (OpCode==0 && (Funct==6'h02 || Funct==6'h03 || Funct==0))?1:0;
+         assign ALUSrc2=
+         (OpCode==0 || OpCode==6'h04)?0:1;
 
-        答:和预计值一致。
-  \end{enumerate}
-\section{执行汇编程序}
-        \subsection {如果第一行的 3 是任意正整数 n，这段程序能实现什么功能？Loop，sum，L1 各有什么作用？为
-            每一句代码添加注释。}
-            答:计算$\sum_{i=1}^ni$。Loop使得程序最终死循环，不退出，sum是求和函数的循环部分（类似for语句），L1是求和中的计算部分和函数的返回部分。
-        \begin{lstlisting}[language=verilog]
-addi $a0, $zero, 3      \\a0初始值为3
-jal sum                 \\跳转到sum部分并保存当前PC到ra
-Loop:
-    beq $zero, $zero, Loop  \\一直循环
-sum:
-    addi $sp, $sp, -8       \\内存中设置栈空间
-    sw $ra, 4($sp)          \\将ra入栈
-    sw $a0, 0($sp)          \\将a0入栈
-    slti $t0, $a0, 1        \\判断是否有a<0
-    beq $t0, $zero, L1      \\a>=0则跳转至L1
-    xor $v0, $zero, $zero   \\将v0初始化为0
-    addi $sp, $sp, 8        \\栈指针加8
-    jr $ra                  \\函数返回
-L1:
-    addi $a0, $a0, -1       \\a0=a0-1
-    jal sum                 \\跳到sum并保存当前PC到ra
-    lw $a0, 0($sp)          \\重新读入保存的a0
-    lw $ra, 4($sp)          \\重新读入保存的ra
-    addi $sp, $sp, 8        \\栈指针加8
-    add $v0, $a0, $v0       \\$v0=$v0+$a0
-    jr $ra                  \\函数返回
-        \end{lstlisting}
+         assign ExtOp=
+         (OpCode==6'h0c)?0:1;
 
-    \subsection{ 将这段汇编程序翻译成机器码。对于 beq 和 jal 语句中的 Loop，sum，L1，你是怎么翻译的？立即数-1、 -8 被翻译成了什么}
-（用 16 进制或 2 进制表示）？
-        \begin{lstlisting}[language=verilog]
-case (Address[9:2])
-    //addi $a0, $zero, 3
-       8'd0:    Instruction <= {6'h08, 5'd0 , 5'd4 , 16'h3};
-    //jal sum
-        8'd1:    Instruction <= {6'h03,26'd3};
-    //Loop:
-    //beq $zero, $zero, Loop
-        8'd2:    Instruction <= {6'h04,5'd0,5'd0,16'hffff};
-    //sum:
-    //addi $sp, $sp, -8
-        8'd3:    Instruction <= {6'h08,5'd29,5'd29,16'hfff8};
-    //sw $ra, 4($sp)
-        8'd4:    Instruction <= {6'h2b,5'd29,5'd31,16'h04};
-    //sw $a0, 0($sp)
-        8'd5:    Instruction <= {6'h2b,5'd29,5'd4,16'h00};
-    //slti $t0, $a0, 1
-        8'd6:    Instruction <= {6'h0a,5'd4,5'd8,16'h01};
-    //beq $t0, $zero, L1
-        8'd7:    Instruction <= {6'h04,5'd8,5'd0,16'h03};
-    //xor $v0, $zero, $zero
-        8'd8:    Instruction <= {6'h0,5'd0,5'd0,5'd2,5'd0,6'h26};
-    //addi $sp, $sp, 8
-        8'd9:    Instruction <= {6'h08,5'd29,5'd29,16'h08};
-    //jr $ra
-        8'd10:    Instruction <= {6'h0,5'd31,15'd0,6'h08};
-    //L1:
-    //addi $a0, $a0, -1
-        8'd11:    Instruction <= {6'h08,5'd4,5'd4,16'hffff};
-    //jal sum
-        8'd12:    Instruction <= {6'h03,26'd3};
-    //lw $a0, 0($sp)
-        8'd13:    Instruction <= {6'h23,5'd29,5'd4,16'h0};
-    //lw $ra, 4($sp)
-        8'd14:    Instruction <= {6'h23,5'd29,5'd31,16'h04};
-    //addi $sp, $sp, 8
-        8'd15:    Instruction <= {6'h08,5'd29,5'd29,16'h08};
-    //add $v0, $a0, $v0
-        8'd16:    Instruction <= {6'h0,5'd4,5'd2,5'd2,5'd0,6'h20};
-    //jr $ra
-        8'd17:    Instruction <= {6'h0,5'd31,15'd0,6'h08};
-   	default: Instruction <= 32'h00000000;
-endcase 
-        \end{lstlisting}
+         assign LuOp=
+         (OpCode==6'h0f)?1:0;
 
-       答: 使PC的值变为Loop，sum，L1对应的指令地址即可跳转。-1为0xffff，-8为0xfff8（十六位）。
+         // Your code above
+         \end{lstlisting}
+         \subsection{ 阅读 InstructionMemory.   
+             v，根据注释理解指令存储器中的程序。这段程序执行足够长时间后会发生什么？此时寄存器\$a0~\$a3,
+             \$t0~\$t2,\$v0~\$v1 中的值应是多少？写出计算过程。注意理解有符号数、无符号数以及各
+             种进制表示的数之间的关系。如果已知某一时刻在某寄存器中存放着数 0xffffcfc7，能否判断出
+         它是有符号数还是无符号数？为什么？}
+         答:足够长的时间后会进入Loop: j Loop 死循环。
 
-    \subsection{修改 InstructionMemory.v，使 CPU 运行上面这段程序。 注意 case 语句的输入是地址的[9-
-2]比特。 仿真观察各控制信号和寄存器的变化。}
-        \begin{enumerate}[a)]
+         ~~~~\$a0=0x00003039,~~~\$a1=0xffffd431,
 
-         \item{ 运行时间足够长之后（如 5000ns 时），寄存器\$a0,\$v0 的值是多少？和你预期的程序功
-             能是否一致？}
-            
-        答:\$a0 为0x00000003,\$v0为0x00000006.与预期一致。
+         ~~~~\$a2=0xD4310000,~~~\$a3=0xffffd431,
 
-        \item{观察、 描述并解释 PC,\$a0,\$v0,\$sp,\$ra 如何变化。}
-            
-       答: 按照周期记录值：
-        PC:一共17条指令，所以只记录仅记录6~2位，其余都是0.
-        
-                    00000,00001,初始化。
-        
-                    00011,00100,00101,00110,00111,01011,01100;
+         ~~~~\$t0=0xD4313039,~~~\$t1=0xfD431303,
 
-                    00011,00100,00101,00110,00111,01011,01100;
+         ~~~~\$t2=0xffffcfc7,~~~\$v0=1,\$v1=1.
 
-                    00011,00100,00101,00110,00111,01011,01100;三次递归，直到a0=0
+         无法判断，因为无符号数和有符号数都可以存储为这样。
 
-                    00011,00100,00101,00110,00111,
-                    
-                    01000,01001,01010;初始化v0，然后第一次返回。
+         \subsection  { 使用 ModelSim 等仿真软件进行仿真。 仿真顶层模块为 test\_cpu，这是一个 testbench，用于向 CPU 提供复位和时钟信号。 观察仿真结果中各寄存器和控制信号的变化。 回答以下问题：}
+         \begin{enumerate}[a)] 
+             \item{ PC 如何变化？}
 
-                    01101,01110,01111,10000,10001;v0=a0+v0，然后返回，这样执行三次
+                 答:不断加4，到10000时跳变到11000，之后继续加4直到101100不再改变。
 
-                    01101,01110,01111,10000,10001;
+             \item{Branch 信号在何时为 1？它引起了 PC 怎样的变化？}
 
-                    01101,01110,01111,10000,10001,
-                    
-                    00010;进入Loop死循环
+                 答:400\~{}500ns。PC从10000跳变为11000而非10100.
 
-    \$a0依次为（10进制）3,2,1,0,1,2,3.a0先每次递归减一，之后出栈则依次恢复上一层的值。
+             \item{100\~{}200ns 期间，PC 是多少？对应的指令是哪条？此时\$a1 的值是多少？200\~{}300ns 期间\$a1 的值是多少？为什么会这样？下一条指令立即使用到了\$a1 的值，会出现错误吗？为什么？}
 
-    \$v0依次为（10进制）0,1,3,6.最后出栈时，每出一次栈，v0=v0+a0.
+                 答:0x00000004。对应的是addiu \$a1, \$zero, -11215。\$a1是0。200\~{}300ns
+                 \$a1=0000\_0000\_0000\_0000\_1101\_0100\_0011\_0001。因为右十六位是-11215的补码。虽然仿真正确，但是可能会出现错误，因为regwrite是上升沿触发\$a1的值是在下一个时钟上升沿才改变的，而读取也是以下一个时钟上升沿读取的，立即使用可能会有冲突。
 
-    \$sp依次为 0x00000000,0xfffffff8,0xfffffff0,0xffffff78,0xffffff70,之前都为入栈（四次）。
-    
-    0xffffff78,0xfffffff0,0xfffffff8,0x00000000.出栈。
+             \item{运行时间足够长之后（如 1100ns 时）寄存器\$a0~\$a3,\$t0~\$t2,\$v0~\$v1 中的值是多少？与你的预期是否一致？}
 
-    \$ra同样只记录6~2 位。
+                 答:和预计值一致。
+         \end{enumerate}
+         \section{执行汇编程序}
+         \subsection {如果第一行的 3 是任意正整数 n，这段程序能实现什么功能？Loop，sum，L1 各有什么作用？为
+         每一句代码添加注释。}
+         答:计算$\sum_{i=1}^ni$。Loop使得程序最终死循环，不退出，sum是求和函数的循环部分（类似for语句），L1是求和中的计算部分和函数的返回部分。
+         \begin{lstlisting}[language=verilog]
+         addi $a0, $zero, 3      \\a0初始值为3
+         jal sum                 \\跳转到sum部分并保存当前PC到ra
+         Loop:
+         beq $zero, $zero, Loop  \\一直循环
+         sum:
+         addi $sp, $sp, -8       \\内存中设置栈空间
+         sw $ra, 4($sp)          \\将ra入栈
+         sw $a0, 0($sp)          \\将a0入栈
+         slti $t0, $a0, 1        \\判断是否有a<0
+         beq $t0, $zero, L1      \\a>=0则跳转至L1
+         xor $v0, $zero, $zero   \\将v0初始化为0
+         addi $sp, $sp, 8        \\栈指针加8
+         jr $ra                  \\函数返回
+         L1:
+         addi $a0, $a0, -1       \\a0=a0-1
+         jal sum                 \\跳到sum并保存当前PC到ra
+         lw $a0, 0($sp)          \\重新读入保存的a0
+         lw $ra, 4($sp)          \\重新读入保存的ra
+         addi $sp, $sp, 8        \\栈指针加8
+         add $v0, $a0, $v0       \\$v0=$v0+$a0
+         jr $ra                  \\函数返回
+         \end{lstlisting}
 
-    00000,00010,01101,00010.第一次um时ra变为00010，之后因为数次jal sum都是指令12，所以此时ra一直为01101，数次出栈ra也不会改变。最后一次出栈使得ra变为0010，之后在死循环中ra不再改变。
-    \end{enumerate}
-\end{document}
+         \subsection{ 将这段汇编程序翻译成机器码。对于 beq 和 jal 语句中的 Loop，sum，L1，你是怎么翻译的？立即数-1、 -8 被翻译成了什么}
+         （用 16 进制或 2 进制表示）？
+         \begin{lstlisting}[language=verilog]
+         case (Address[9:2])
+         //addi $a0, $zero, 3
+         8'd0:    Instruction <= {6'h08, 5'd0 , 5'd4 , 16'h3};
+         //jal sum
+         8'd1:    Instruction <= {6'h03,26'd3};
+         //Loop:
+         //beq $zero, $zero, Loop
+         8'd2:    Instruction <= {6'h04,5'd0,5'd0,16'hffff};
+         //sum:
+         //addi $sp, $sp, -8
+         8'd3:    Instruction <= {6'h08,5'd29,5'd29,16'hfff8};
+         //sw $ra, 4($sp)
+         8'd4:    Instruction <= {6'h2b,5'd29,5'd31,16'h04};
+         //sw $a0, 0($sp)
+         8'd5:    Instruction <= {6'h2b,5'd29,5'd4,16'h00};
+         //slti $t0, $a0, 1
+         8'd6:    Instruction <= {6'h0a,5'd4,5'd8,16'h01};
+         //beq $t0, $zero, L1
+         8'd7:    Instruction <= {6'h04,5'd8,5'd0,16'h03};
+         //xor $v0, $zero, $zero
+         8'd8:    Instruction <= {6'h0,5'd0,5'd0,5'd2,5'd0,6'h26};
+         //addi $sp, $sp, 8
+         8'd9:    Instruction <= {6'h08,5'd29,5'd29,16'h08};
+         //jr $ra
+         8'd10:    Instruction <= {6'h0,5'd31,15'd0,6'h08};
+         //L1:
+         //addi $a0, $a0, -1
+         8'd11:    Instruction <= {6'h08,5'd4,5'd4,16'hffff};
+         //jal sum
+         8'd12:    Instruction <= {6'h03,26'd3};
+         //lw $a0, 0($sp)
+         8'd13:    Instruction <= {6'h23,5'd29,5'd4,16'h0};
+         //lw $ra, 4($sp)
+         8'd14:    Instruction <= {6'h23,5'd29,5'd31,16'h04};
+         //addi $sp, $sp, 8
+         8'd15:    Instruction <= {6'h08,5'd29,5'd29,16'h08};
+         //add $v0, $a0, $v0
+         8'd16:    Instruction <= {6'h0,5'd4,5'd2,5'd2,5'd0,6'h20};
+         //jr $ra
+         8'd17:    Instruction <= {6'h0,5'd31,15'd0,6'h08};
+         default: Instruction <= 32'h00000000;
+         endcase 
+         \end{lstlisting}
+
+         答: 使PC的值变为Loop，sum，L1对应的指令地址即可跳转。-1为0xffff，-8为0xfff8（十六位）。
+
+         \subsection{修改 InstructionMemory.v，使 CPU 运行上面这段程序。 注意 case 语句的输入是地址的[9-
+         2]比特。 仿真观察各控制信号和寄存器的变化。}
+         \begin{enumerate}[a)]
+
+             \item{ 运行时间足够长之后（如 5000ns 时），寄存器\$a0,\$v0 的值是多少？和你预期的程序功
+                 能是否一致？}
+
+                 答:\$a0 为0x00000003,\$v0为0x00000006.与预期一致。
+
+             \item{观察、 描述并解释 PC,\$a0,\$v0,\$sp,\$ra 如何变化。}
+
+                 答: 按照周期记录值：
+                 PC:一共17条指令，所以只记录仅记录6~2位，其余都是0.
+
+                 00000,00001,初始化。
+
+                 00011,00100,00101,00110,00111,01011,01100;
+
+                 00011,00100,00101,00110,00111,01011,01100;
+
+                 00011,00100,00101,00110,00111,01011,01100;三次递归，直到a0=0
+
+                 00011,00100,00101,00110,00111,
+
+                 01000,01001,01010;初始化v0，然后第一次返回。
+
+                 01101,01110,01111,10000,10001;v0=a0+v0，然后返回，这样执行三次
+
+                 01101,01110,01111,10000,10001;
+
+                 01101,01110,01111,10000,10001,
+
+                 00010;进入Loop死循环
+
+                 \$a0依次为（10进制）3,2,1,0,1,2,3.a0先每次递归减一，之后出栈则依次恢复上一层的值。
+
+                 \$v0依次为（10进制）0,1,3,6.最后出栈时，每出一次栈，v0=v0+a0.
+
+                 \$sp依次为 0x00000000,0xfffffff8,0xfffffff0,0xffffff78,0xffffff70,之前都为入栈（四次）。
+
+                 0xffffff78,0xfffffff0,0xfffffff8,0x00000000.出栈。
+
+                 \$ra同样只记录6~2 位。
+
+                 00000,00010,01101,00010.第一次um时ra变为00010，之后因为数次jal sum都是指令12，所以此时ra一直为01101，数次出栈ra也不会改变。最后一次出栈使得ra变为0010，之后在死循环中ra不再改变。
+         \end{enumerate}
+         \end{document}
