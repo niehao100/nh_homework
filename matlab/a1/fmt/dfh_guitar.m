@@ -1,4 +1,4 @@
-clear;clc;format long;
+qclear;clc;format long;
 Fs=8000;
 load guitar.mat;
 y=repmat(wave2proc,100,1);
@@ -18,15 +18,15 @@ Y1=(Y1-[Y;Y]);
 Y1=[1 1]*(Y1<0);
 Y1=(Y1==2);
 f=f.*Y1;
-%鍙栨瀬澶у?鐐瑰搴旂殑棰戠巼
+%取极大点对应的频率
 if (max(Y.*Y1))>0.03
     f=f.*((Y.*Y1)>0.03);
 else 
     f=f.*((Y.*Y1)>0.013);
 end
-%鍔犲箙鍊肩殑闄愬埗
+%加幅值的限制
 [list,I]=sort(f+10000.*(f==0));
-%寰楀埌鍩洪
+%得到基频
 base=(1:6)*list(1);
 a=zeros(1,6);
 a(1)=Y(I(1));
