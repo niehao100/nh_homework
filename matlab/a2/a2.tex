@@ -1,0 +1,53 @@
+\documentclass{ctexart}
+%
+%页眉页脚
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage{listings} 
+\usepackage[colorlinks,linkcolor=black]{hyperref}% 书签
+\lstset{numbers=left, %设置行号位置
+    numberstyle=\tiny, %设置行号大小
+    keywordstyle=\color{blue}, %设置关键字颜色
+    commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
+    frame=single, %设置边框格式
+    breaklines, %自动折行
+    extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+    xleftmargin=1.5em,xrightmargin=1.5em, aboveskip=1em, %设置边距
+    tabsize=4, %设置tab空格数
+    showspaces=false %不显示空格
+}
+%中文
+\usepackage{xeCJK}
+%字体设置
+\usepackage{indentfirst}
+\setlength{\parindent}{2em} %首行缩进
+
+
+
+\title{MATLAB 综合实验之语音合成\footnote{所有的.m文件均采用utf8编码，在matlab中打开可能会出现中文乱码的情况，请用其它编辑器打开}}
+\author{聂浩~~ 无31~~ 2013011280}
+\date{\today}
+\begin{document}
+\maketitle
+\section{语音预测模型}
+\begin{enumerate}
+    \item{
+            给定\[e(n) = s(n)−a1s(n−1)−a2s(n−2)\]假设 e(n) 是输入信号，s(n)
+            是输出信号，上述滤波器的传递函数是什么？如果 a1 = 1.3789 ，
+            a2 =−0.9506 ，上述合成模型的共振峰频率是多少？用 zplane ，
+            freqz ，impz 分别绘出零 极点图，频率响应和单位样值响应。
+        用 ﬁlter 绘出单位样值响应，比较和 impz 的是否相同。}
+
+        答：传递函数是
+       
+        \[V(s)=\frac{1}{1-a_1z^{-1}-a_2z^{-2}}=\frac{1}{1-1.3789z^{-1}+0.9506z^{-2}}\]
+
+
