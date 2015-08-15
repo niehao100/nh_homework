@@ -1,3 +1,4 @@
+%# -*- coding: gb2312 -*-
 function speechproc()
 
     % 定义常数
@@ -43,23 +44,22 @@ function speechproc()
         
         s_f = s((n-1)*FL+1:n*FL);       % 本帧语音，下面就要对它做处理
 
-        % (4) 在此位置写程序，用filter函数s_f计算激励，注意保持滤波器状态
-       [exc((n-1)*FL+1:n*FL),zi_pre]=filter(A,1,s_f,zi_pre);
-        
+        % (4) 在此位置写程序，用filter 函数s_f 计算激励，注意保持滤波器状态
         % exc((n-1)*FL+1:n*FL) = ... 将你计算得到的激励写在这里
-
-        % (5) 在此位置写程序，用filter函数和exc重建语音，注意保持滤波器状态
+        [exc((n-1)*FL+1:n*FL),zi_pre]=filter(A,1,s_f,zi_pre);
+        
+        % (5) 在此位置写程序，用filter 函数和exc 重建语音，注意保持滤波器状态
 
         [s_rec((n-1)*FL+1:n*FL),zi_rec]=filter(1,A,exc((n-1)*FL+1:n*FL),zi_rec);
         % s_rec((n-1)*FL+1:n*FL) = ... 将你计算得到的重建语音写在这里
 
-        % 注意下面只有在得到exc后才会计算正确
+        % 注意下面只有在得到exc 后才会计算正确
         s_Pitch = exc(n*FL-222:n*FL);
         PT = findpitch(s_Pitch);    % 计算基音周期PT（不要求掌握）
         G = sqrt(E*PT);           % 计算合成激励的能量G（不要求掌握）
 
         
-        % (10) 在此位置写程序，生成合成激励，并用激励和filter函数产生合成语音
+        % (10) 在此位置写程序，生成合成激励，并用激励和filter 函数产生合成语音
 
         % exc_syn((n-1)*FL+1:n*FL) = ... 将你计算得到的合成激励写在这里
         tmp=(n-1)*FL+1:n*FL;
@@ -77,7 +77,7 @@ function speechproc()
          exc_syn_v((n-1)*FL_v+1:n*FL_v)= G*(mod(tmp_syn_v,PT)==0);
         % s_syn_v((n-1)*FL_v+1:n*FL_v) = ...   将你计算得到的加长合成语音写在这里
          [s_syn_v((n-1)*FL_v+1:n*FL_v),zi_syn_v]=filter(1,A,exc_syn_v((n-1)*FL_v+1:n*FL_v),zi_syn_v);
-        % (13) 将基音周期减小一半，将共振峰频率增加150Hz，重新合成语音，听听是啥感受～
+        % (13) 将基音周期减小一半，将共振峰频率增加150Hz ，重新合成语音，听听是啥感受～
         PT=fix(PT/2);
         [z,p,k]=tf2zp(1,A);
         %角度为正频率加155
@@ -91,21 +91,26 @@ function speechproc()
         [s_syn_t((n-1)*FL+1:n*FL),zi_syn_t]=filter(B,A,exc_syn_t((n-1)*FL+1:n*FL),zi_syn_t);
 end
 
-    % (6) 在此位置写程序，听一听 s ，exc 和 s_rec 有何区别，解释这种区别
+    % (6) 在此位置写程序，听一听 s ，exc 和 s_rec  有何区别，解释这种区别
     % 后面听语音的题目也都可以在这里写，不再做特别注明
-%     sound(s,8000);
-%     pause(L/8000);
-%     sound(s_rec,8000);
-%     pause(L/8000);
-%     sound(exc,8000);
-%     pause(L/8000);
-     t=(1:L)/8000;
-%     figure;
-%     plot(t,s,'k');
-%     hold on;
-     plot(t,s_rec/max(s_rec),'r-.',t,exc/max(exc),'b');
-%     legend('s','s_rec','exc');
-%     title('wave of s,s_rec,exc');
+    soundsc(s,8000);
+    pause(L/8000);
+    soundsc(s_rec,8000);
+    pause(L/8000);
+    soundsc(exc,8000);
+    pause(L/8000);
+    soundsc(s_syn,8000);
+    pause(L/8000);
+    soundsc(s_syn_v,8000);
+    pause(2*L/8000);
+    soundsc(s_syn_t,8000);
+   t=(1:L)/8000;
+    figure;
+    plot(t,s/max(s),'k');
+    hold on;
+    plot(t,s_rec/max(s_rec),'r-.',t,exc/max(exc),'b-.');
+    legend('s','s\_rec','exc');
+    title('wave of s,s_rec,exc');
     % 保存所有文件
     writespeech('exc.pcm',exc);
     writespeech('rec.pcm',s_rec);
@@ -117,14 +122,14 @@ end
     writespeech('syn_v.pcm',s_syn_v);
 return
 
-% 从PCM文件中读入语音
+% 从PCM 文件中读入语音
 function s = readspeech(filename, L)
     fid = fopen(filename, 'r');
     s = fread(fid, L, 'int16');
     fclose(fid);
 return
 
-% 写语音到PCM文件中
+% 写语音到PCM 文件中
 function writespeech(filename,s)
     fid = fopen(filename,'w');
     fwrite(fid, s, 'int16');

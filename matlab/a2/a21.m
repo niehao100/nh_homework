@@ -13,3 +13,5 @@ h=filter(b,a,(n==0));
 hold on;
 plot(n,h,'r*');
 legend('impz','filter');
+[z,p,~]=tf2zp(b,a);
+f=angle(p)/(2*pi/8000)
