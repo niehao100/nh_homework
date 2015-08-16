@@ -1,12 +1,12 @@
 function [s]=m_note_3(note,time,base,f)
-    %è¾“å…¥å‚æ•°
-    %noteéŸ³ç¬¦
+    %ÊäÈë²ÎÊı
+    %noteÒô·û
 	%between-5~25
 	%-10 means an empty beat 
-    %timeæŒç»­æ—¶é—´
-    %baseåŸºè°ƒ
-    %fé‡‡æ ·é¢‘ç‡
-    %så£°éŸ³ä¿¡å·
+    %time³ÖĞøÊ±¼ä
+    %base»ùµ÷
+    %f²ÉÑùÆµÂÊ
+    %sÉùÒôĞÅºÅ
     n=-5:19;    
     freq=base*2.^kron(1/12,n);
     t=((1:(time)*f)/f)';
@@ -14,7 +14,7 @@ function [s]=m_note_3(note,time,base,f)
         s=0*t;
     else
         e=(t<0.1*time).*(t-0.1*time)*80+(t>=0.1*time&t<0.15*time).*(0.1*time-t)*4.46/time-(t>=0.15*time&t<0.95*time)*0.223+(t>=0.9*time).*((0.9*time-t)*40-0.223);
-        %exp(e)ä¸ºæŒ‡æ•°åºåˆ—     
+        %exp(e)ÎªÖ¸ÊıĞòÁĞ     
         s=exp(e).*(cos(2*pi*freq(6+note)*t)+0.2*cos(2*pi*2*freq(6+note)*t)+0.3*cos(2*pi*3*freq(6+note)*t));
     end
     return 

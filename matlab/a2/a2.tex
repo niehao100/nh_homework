@@ -14,6 +14,12 @@
 \usepackage{subfigure}
 \usepackage{listings} 
 \usepackage[colorlinks,linkcolor=black]{hyperref}% 书签
+\usepackage{fancyhdr}
+
+\fancyhead[R]{\thepage}% 这是奇数页右页眉、偶数页左页眉
+\fancyhead[L]{}
+\chead{MATLAB 综合实验之语音合成}%这是中间页眉
+\pagestyle{fancy}
 \lstset{numbers=left, %设置行号位置
     numberstyle=\tiny, %设置行号大小
     keywordstyle=\color{blue}, %设置关键字颜色
@@ -33,7 +39,7 @@
 
 
 
-\title{MATLAB 综合实验之语音合成\footnote{所有的.m文件均采用utf8编码，在matlab中打开可能会出现中文乱码的情况，请用其它编辑器打开}}
+\title{MATLAB 综合实验之语音合成\footnote{所有的.m文件均采用utf8编码，windows版matlab中打开可能会出现中文乱码的情况，请用其它编辑器打开}}
 \author{聂浩~~ 无31~~ 2013011280}
 \date{\today}
 \begin{document}
@@ -71,7 +77,7 @@ zplane绘制零极点图如图\ref{1zp},freqz绘制频率响应图如图\ref{1fr
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{1_zp.jpg}\\
-    \caption{单位样值响应图\label{lir}}
+    \caption{单位样值响应图\label{1ir}}
 \end{figure}
 
 代码如下(a21.m):
@@ -110,8 +116,8 @@ end
 \begin{lstlisting}[language=matlab]
 s_f = s((n-1)*FL+1:n*FL);       
 % 本帧语音，下面就要对它做处理
-% (4) 在此位置写程序，用filter 函数 s_f  计算激励，注意保持滤波器状态
-% exc((n-1)*FL+1:n*FL) = ...  将你计算得到的激励写在这里
+% (4) 在此位置写程序，用filter函数s_f计算激励，注意保持滤波器状态
+% exc((n-1)*FL+1:n*FL) = ...将你计算得到的激励写在这里
 [exc((n-1)*FL+1:n*FL),zi_pre]=filter(A,1,s_f,zi_pre);
 \end{lstlisting}
 
@@ -120,10 +126,10 @@ s_f = s((n-1)*FL+1:n*FL);
 
 这里需要反过来用滤波器，代码如下:
 \begin{lstlisting}[language=matlab]
-% (5) 在此位置写程序，用filter 函数
-%和exc 重建语音，注意保持滤波器状态
+% (5) 在此位置写程序，用filter函数
+%和exc重建语音，注意保持滤波器状态
 [s_rec((n-1)*FL+1:n*FL),zi_rec]=filter(1,A,exc((n-1)*FL+1:n*FL),zi_rec);
-% s_rec((n-1)*FL+1:n*FL) = ... 将你计算得到的重建语音写在这里
+% s_rec((n-1)*FL+1:n*FL) =...将你计算得到的重建语音写在这里
 \end{lstlisting}
 \subsection{
     在循环结束后添加程序：用 sound 试听（6）中的 e(n) 信号，比较和 s(n) 以及 
@@ -181,7 +187,7 @@ $PT = 80 + 5mod(m,50)$
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{8wave.jpg}\\
-    \caption{生成的e(n)\label{8wave}}
+    \caption{变周期e(n)\label{8wave}}
 \end{figure}
 
 \subsection{
@@ -206,16 +212,14 @@ e(n) 有何区别。
 音 $\tilde{s}(n)$ 。试听和原始语音有何差别。
 }
 这里的的$\tilde{s}(n)$听起来在每两个字之间有一种模糊的感觉，就像风吹在麦克风上一样。
-这应该是因为基频在这些时刻快速改变造成的。
+这应该是基频在这些时刻快速改变造成的。
 
 代码如下:
 \begin{lstlisting}[language=matlab]
-% (10) 在此位置写程序，生成合成激励，并用激励和filter 函数产生合成语音
-
+% (10) 在此位置写程序，生成合成激励，并用激励和filter函数产生合成语音
 % exc_syn((n-1)*FL+1:n*FL) = ... 将你计算得到的合成激励写在这里
 tmp=(n-1)*FL+1:n*FL;
 exc_syn((n-1)*FL+1:n*FL)= G*(mod(tmp,PT)==0);
-
 % s_syn((n-1)*FL+1:n*FL) = ...   将你计算得到的合成语音写在这里
 [s_syn((n-1)*FL+1:n*FL),zi_syn]=filter(1,A,exc_syn((n-1)*FL+1:n*FL),zi_syn);
 \end{lstlisting}
@@ -265,16 +269,16 @@ zi_syn_v = zeros(P,1);
 仿照（10）重改 speechproc.m 程序，但要将基音周期减小一半，将所有的共振峰
 频率都增加 150Hz ，重新合成语音，听听是何感受。
 }
-听起来调子高了不少，但音频时长并未改变。然而并不是非常像女声，有很强的假声的感觉。
+听起来调子高了不少，但音频时长并未改变。然而并不太像真正的女声，有很强的假声的感。
 
 代码如下:
 \begin{lstlisting}[language=matlab]
 % (13) 将基音周期减小一半，将共振峰频率增加150Hz，重新合成语音，听听是啥感受～
 PT=fix(PT/2);
 [z,p,k]=tf2zp(1,A);
-%角度为正频率加155
-%为负减155
-p=abs(p).*exp((  angle(p)+2*pi/8000*150*  (2* (angle(p)>0) -1)  )*1j);
+%角度为正频率加150
+%为负减150
+p=abs(p).*exp(( angle(p)+2*pi/8000*150*(2* (angle(p)>0) -1) )*1j);
 [B,A]=zp2tf(z,p,k);
 tmp_t=(n-1)*FL+1:n*FL;
 % exc_syn_t((n-1)*FL+1:n*FL) = ... 将你计算得到的变调合成激励写在这里
@@ -289,7 +293,7 @@ zi_syn_t = zeros(P,1);
 \end{lstlisting}
 
 \section{总结}
-本次试验更多的是利用已有的数学模型在给定框架下进行扩展，与音乐合成实验相比发散性更少一些，最终的实现也较为单一。感觉本次实验最大的收获是对于语音合成、语音处理的进一步理解，matlab更多的是应用。
+本次试验更多的是利用已有的数学模型在给定框架下进行扩展，与音乐合成实验相比发散性更少一些，最终的实现也较为单一。感觉本次实验最大的收获是对于语音合成、语音处理的进一步理解，是对于matlab实际应用的一种练习．
 
 \section{speechproc.m完成版}
 \lstinputlisting[language=matlab]{speechproc.m}

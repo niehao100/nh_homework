@@ -1,11 +1,11 @@
 function m_note_1(note,time,base,f)
-    %杈撳叆鍙傛暟
-    %note闊崇,
+    %输入参数
+    %note音符,
 	%between -5~25,
 	%-10 means an empty beat 
-    %time鎸佺画鏃堕棿
-    %base鍩鸿皟
-    %f閲囨牱棰戠巼
+    %time持续时间
+    %base基调
+    %f采样频率
     n=[-5:19];
     freq=base*2.^kron(1/12,n);
     t=[0:time*f]/f;

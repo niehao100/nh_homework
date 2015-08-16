@@ -272,6 +272,8 @@
                     12.37s时幅度变化太小，小于一些拍子内部的变化,无法划分。在调整参数后，
                 也无法解决该问题}
         \end{itemize}
+
+
         \begin{figure}
             \centering
             \includegraphics[width=0.8\textwidth]{fmt/1_9_2.jpg}\\
@@ -280,30 +282,34 @@
 
 
         因此，采用最基本的手工标定法，利用cooledit将音乐分为31段，分别存储在fmt (2).wav至fmt (32).wav 中，批处理获得各个音的音调即对应的的谐波强度。
-				
-			代码如下（anay.m,f\_f.m）：
-        \lstinputlisting[language=matlab]{fmt/anay.m}
-        \lstinputlisting[language=matlab]{fmt/f_f.m}
         最终的得到的结果为图\ref{19sheet}（存储在变量freq和A中）；
+
         \begin{figure}
             \centering
             \subfigure{
-            \includegraphics[width=0.6\textwidth]{fmt/1_9_sheet1.jpg}}
+                \includegraphics[width=0.9\columnwidth]{fmt/1_9_sheet1.jpg}
+            }\\
+
             \subfigure{
-            \includegraphics[width=0.6\textwidth]{fmt/1_9_sheet2.jpg}}
+                \includegraphics[width=0.9\columnwidth]{fmt/1_9_sheet2.jpg}
+            }
             \caption{fmt分析结果\label{19sheet}}
         \end{figure}
 
-\section{
-    基于傅里叶级数的合成音乐
-}
-\setcounter{subsection}{9} 
-    \subsection{
+
+        代码如下（anay.m,f\_f.m）：
+        \lstinputlisting[language=matlab]{fmt/anay.m}
+        \lstinputlisting[language=matlab]{fmt/f_f.m}
+        \section{
+            基于傅里叶级数的合成音乐
+        }
+        \setcounter{subsection}{9} 
+        \subsection{
             用 (7) 计算出来的傅里叶级数再次完成第 (4) 题，听一听是否像演奏 fmt.wav 的吉
             他演奏出来的？
         }
         思路：将谐波的振幅关系传给m\_note\_guitar函数，使产生的音有谐波分量。
-        
+
         代码如下:(dfh\_guitar.m,m\_note\_guitar.m):
 
         \lstinputlisting[language=matlab]{fmt/dfh_guitar.m}
@@ -316,7 +322,7 @@
             \caption{新包络\label{110}}
         \end{figure}
 
-    \subsection{
+        \subsection{
             也许(9) 还不是很像，因为对于一把泛音丰富的吉他而言，不可能每个音调对应的
             泛音数量和幅度都相同。但是通过完成第 (8) 题，你已经提取出 fmt.wav 中的很多音调，或
             者说，掌握了每个音调对应的傅里叶级数，大致了解了这把吉他的特征。现在就来演奏一
@@ -341,11 +347,11 @@
         本题的难点在于将第（9）问的数据应用在这里，
         进行了较为复杂的运算才得以使用，使自己有了不小的提升。
 
-    \subsection{
+        \subsection{
             现在只要你掌握了某乐器足够多的演奏资料，就可以合成出该乐器演奏的任何音
             乐，在学完本书后面内容之后，试着做一个图形界面把上述功能封装起来。
         }
-       
+
         GUI界面如图\ref{112}，其中内置了三首曲子：《东方红》《茉莉花》《致爱丽丝》;
         提供C大调和A大调两种音调；提供吉他、风琴（如第四题，但是仍使用吉他的包络）
         、电子音（只有基波）三种音色。
@@ -354,7 +360,7 @@
         1.5就是$^b2$，-10表示是空音。可以演奏从-3到13的所有音（C大调，
         A大调为-5到15）在时间栏中输入各个音符对应的时间，
         样例乐谱选无，点击演奏就能听到音乐了。
-     
+
         同时，用户可以点击分析音乐按钮，选择的一小段wav文件，
         程序会进行分析（无法进行分拍分析，只会当做一个音）。
         然后音色选择custom就能利用该段音乐的频谱特点模仿该音色。
@@ -377,4 +383,4 @@
 
         代码如下:(gui.m)
         \lstinputlisting[language=matlab]{fmt/gui.m}
-\end{document}
+        \end{document}
