@@ -1,12 +1,12 @@
 function [s]=m_note_guitar(note,time,base,f,A)
-    %杈撳叆鍙傛暟
-    %note闊崇
+    %输入参数
+    %note音符
 	%between -5~25,-10 means an empty beat 
-    %time鎸佺画鏃堕棿
-    %base鍩鸿皟
-    %f閲囨牱棰戠巼
-    %s澹伴煶淇″彿
-    %A璋愭尝寮哄害
+    %time持续时间
+    %base基调
+    %f采样频率
+    %s声音信号
+    %A谐波强度
 
 
     A=A/A(1);
@@ -20,7 +20,7 @@ function [s]=m_note_guitar(note,time,base,f,A)
         for i=1:6
             s=s+A(i)*cos(2*pi*freq(note+6)*i*t);
         end
-        %鍖呯粶
+        %包络
         e=(t<0.05*time).*(t-0.05*time)*80/time+(t>=0.05*time&t<0.3*time).*(0.05*time-t)*4.43/time+(t>=0.3*time).*(2.7*(0.3*time-t)/time-1.10);
         s=s.*exp(e);
     end
