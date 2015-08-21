@@ -1,0 +1,16 @@
+//By Neil 2015/8/21
+module alu_logic(A,B,ALUFun,logic);
+input [31:0]A,B;
+input [3:0]ALUFun;
+output [31:0]logic;
+always @(*) begin
+    case (ALUFun)
+        3'b1000:logic   <=  A&B;
+        3'b1110:logic   <=  A|B;
+        3'b0110:logic   <=  A^B;
+        3'b0001:logic   <=  ~(A|B);
+        3'b1010:logic   <=  A;
+        default:logic   <=  A;
+    endcase
+end
+endmodule

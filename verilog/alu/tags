@@ -1,0 +1,51 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	.\alu.v	/^input [31:0]A,B;$/;"	p
+A	.\alu_add_sub.v	/^input [31:0]A,B;$/;"	p
+A	.\alu_add_sub.v	/^input [3:0]A,B;$/;"	p
+A	.\alu_logic.v	/^input [31:0]A,B;$/;"	p
+ALUFun	.\alu.v	/^input [5:0]ALUFun;$/;"	p
+ALUFun	.\alu_add_sub.v	/^input Sign,ALUFun;$/;"	p
+ALUFun	.\alu_cmp.v	/^input [3:0]ALUFun;$/;"	p
+ALUFun	.\alu_logic.v	/^input [3:0]ALUFun;$/;"	p
+ALUadd	.\alu_add_sub.v	/^module ALUadd(A,B,Sign,ALUFun,zero,out_of_range,no_zero,addS);$/;"	m
+ALUcmp	.\alu_cmp.v	/^module ALUcmp(Z,V,N,ALUFun,cmp);$/;"	m
+ALUlogic	.\alu_logic.v	/^module ALUlogic(A,B,ALUFun,logic);$/;"	m
+B	.\alu.v	/^input [31:0]A,B;$/;"	p
+B	.\alu_add_sub.v	/^input [31:0]A,B;$/;"	p
+B	.\alu_add_sub.v	/^input [3:0]A,B;$/;"	p
+B	.\alu_logic.v	/^input [31:0]A,B;$/;"	p
+B_tmp	.\alu.v	/^wire [31:0]B_tmp,addS,cmp;$/;"	n
+B_tmp	.\alu_add_sub.v	/^wire [31:0]B_tmp;$/;"	n
+N	.\alu_cmp.v	/^input Z,V,N;$/;"	p
+Sign	.\alu.v	/^input Sign;$/;"	p
+Sign	.\alu_add_sub.v	/^input Sign,ALUFun;$/;"	p
+V	.\alu_cmp.v	/^input Z,V,N;$/;"	p
+Z	.\alu_cmp.v	/^input Z,V,N;$/;"	p
+addS	.\alu.v	/^wire [31:0]B_tmp,addS,cmp;$/;"	n
+addS	.\alu_add_sub.v	/^output [31:0]addS;$/;"	p
+addS	.\alu_add_sub.v	/^output [3:0]addS;$/;"	p
+adder4	.\alu_add_sub.v	/^module adder4(A,B,cout,cout_3,cin,addS);$/;"	m
+alu	.\alu.v	/^module alu(A,B,ALUFun,Sign,Z);$/;"	m
+cin	.\alu_add_sub.v	/^input cin;$/;"	p
+cmp	.\alu.v	/^wire [31:0]B_tmp,addS,cmp;$/;"	n
+cout	.\alu_add_sub.v	/^output cout,cout_3;$/;"	p
+cout_3	.\alu_add_sub.v	/^output cout,cout_3;$/;"	p
+ctmp	.\alu_add_sub.v	/^reg [2:0]ctmp;$/;"	r
+ctmp	.\alu_add_sub.v	/^wire [7:0]ctmp;$/;"	n
+ctmp_31	.\alu_add_sub.v	/^wire ctmp_31;$/;"	n
+g	.\alu_add_sub.v	/^wire [3:0]p,g;$/;"	n
+logic	.\alu_logic.v	/^output [31:0]logic;$/;"	p
+no_zero	.\alu.v	/^wire zero,out_of_range,no_zero;$/;"	n
+no_zero	.\alu_add_sub.v	/^output zero,out_of_range,no_zero;$/;"	p
+out_of_range	.\alu.v	/^wire zero,out_of_range,no_zero;$/;"	n
+out_of_range	.\alu_add_sub.v	/^output zero,out_of_range,no_zero;$/;"	p
+p	.\alu_add_sub.v	/^wire [3:0]p,g;$/;"	n
+reg	.\alu.v	/^output reg [31:0]Z;$/;"	p
+reg	.\alu_cmp.v	/^output reg [31:0]cmp;$/;"	p
+zero	.\alu.v	/^wire zero,out_of_range,no_zero;$/;"	n
+zero	.\alu_add_sub.v	/^output zero,out_of_range,no_zero;$/;"	p
