@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{基础知识}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{ MATLAB 提供了图像处理工具箱，在命令窗口输入 help images 可查看该工具箱内的所有函数。 请阅读并大致了解这些函数的基本功能。}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{ 利用 MATLAB 提供的 Image file I/O 函数分别完成以下处理：}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{以测试图像的中心为圆心，图像的长和宽中较小值的一半为半径画一个红颜色的圆：}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{将测试图像涂成国际象棋状的“黑白格”的样子，其中“黑”即黑色，“白”则意味着保留原图。 用一种看图软件浏览上述两个图，看是否达到了目标。}{subsection.1.2}% 5
+\BOOKMARK [1][-]{section.2}{图像压缩编码}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{ 像的预处理是将每个像素灰度值减去128， 这个步骤是否可以在变换域进行？ 请在测试图像中截取一块验证你的结论。}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{ 请编程实现二维 DCT ，并和 MATLAB 自带的库函数 dct2 比较是否一致。}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{ 如果将 DCT 系数矩阵中右侧四列的系数全部置零，逆变换后的图像会发生什么变化？选取一块图验证你的结论。 如果左侧的四列置零呢？ }{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{ 若对 DCT 系数分别做转置、 旋转 90 度和旋转 180 度操作 \(rot90\) ，逆变换后恢复的图像有何变化？选取一块图验证你的结论。}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.5}{ 如果认为差分编码是一个系统，请绘出这个系统的频率响应，说明它是一个____\(低通、 高通、 带通、带阻\)滤波器。 DC 系数先进行差分编码再进行熵编码，说明 DC 系数的____频率分量更多。}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.6}{ DC 预测误差的取值和 Category 值有何关系?如何利用预测误差计算出其 Category? }{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.7}{ 你知道哪些实现 Zig-Zag 扫描的方法?请利用 MATLAB 的强大功能设 计一种最佳方法。 }{section.2}% 13
