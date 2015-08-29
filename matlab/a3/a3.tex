@@ -168,5 +168,56 @@ DC的预测误差$\hat{c}_D=0$时，Category=0，否则$Category=ceil(log2(abs(\
 对测试图像分块 DCT 和量化,将量化后的系数写成矩阵的形式,其中每一列为一个块的 DCT 系数 Zig-Zag 扫描后形成的列矢量,第一行为各个块的DC 系数。
 }
 代码如下（a3\_2\_8.m）
-\lstinputlisting{a3_2_8.m}
+\lstinputlisting[language=matlab]{a3_2_8.m}
+\subsection{
+请实现本章介绍的 JPEG 编码(不包括写 JFIF 文件),输出为 DC 系数的
+码流、 AC 系数的码流、图像高度和图像宽度,将这四个变量写入 jpegcodes.mat
+文件。
+}
+代码如下（a3\_2\_9.m）:
+\lstinputlisting[language=matlab]{a3_2_9.m}
+\subsection{
+ 计算压缩比(输入文件长度/输出码流长度),注意转换为相同进制。
+}
+压缩比为\[\frac{8*m*n}{length(DCstream)+length(ACstream)}\]
+\[=\frac{8\times 120 \times 168}{2054+23072}=6.4188\]
+
+\subsection{
+请实现本章介绍的 JPEG 解码,输入是你生成的 jpegcodes.mat 文件。
+分别用客观 (PSNR)和主观方式评价编解码效果如何。
+}
+生成的图像如图\ref{a3210}，感觉已经很像原图了。计算得到PSNR=34.89，根据检查，haffman编码解无损（R和source一致）。
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{a3_2_10.jpg}\\
+    \caption{原图与编码解码后的图像\label{a3210}}
+\end{figure}
+
+代码如下(a3\_2\_10.m):
+\lstinputlisting[language=matlab]{a3_2_10.m}
+
+\subsection{
+将量化步长减小为原来的一半,重故编解码。同标准量化步长的情况比
+较压缩比和图像质量。
+}
+使QTAB=QTAB./2即可。肉眼难以看到变化，压缩比为4.4081，PSNR为37.32。
+
+\subsection{
+ 看电视时偶尔能看到美丽的雪花图像(见 snow.mat),请对其编解码。
+和测试图像的压缩比和图像质量进行比较,并解释比较结果。
+}
+如图\ref{a312},把hall\_gray换成snow即可，得到压缩比为3.6407，PSNR=29.5614。两者看起来很像，但编码解码后的图看起来颗粒要大一些。
+这是因为编码过程中滤去了高频分量，是的雪花中一些变化很快的部分不再那么明显。
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{a3_2_12.jpg}\\
+    \caption{雪花原图、编码后的图像和两者的差\label{a3212}}
+\end{figure}
+
+\section{信息隐藏}
+\subsection{实现本章介绍的空域隐藏方法和提取方法。验证其抗JPEG编码能力。}    
+这里采用了空域隐藏可以直接恢复\footnote{只处理了８bit,也就是只有英文字符，虽然增加每个字符的bit数可以加密更多的字符，这里不对字符集进行进一步的探讨}原始信息 A quick brown fox jump over the lazy dog。但是jpeg编码解码后再解密就变成了乱码。
+
+\subsection{
+}
 \end{document}

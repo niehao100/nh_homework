@@ -1,34 +1,8 @@
-clc;clear;close all;
-load('hall.mat');
-load('JpegCoeff.mat');
-[m,n]=size(hall_gray);
-%量化矩阵为MxN
-M=ceil(m/8);N=ceil(n/8);
-%转化为double以进行计算
-hall_gray=double(hall_gray);
-%长宽扩至8的倍数
-if (M*8~=m)
-    hall_gray=[hall_gray hall_gray(:,n)*ones(1,(M*8-m))];
-end
-if (N*8~=n)
-    hall_gray=[hall_gray;ones((N*8-n),1)*hall_gray(m,:)];
-end
-m=8*M;
-n=8*N;
-%C存储DCT基数，R存储zig-tag变换后的值
-hall_gray=hall_gray-128;
-C=hall_gray;
-R=zeros(64,M*N);
-for i=1:M
-    for j=1:N
-        %量化
-        C(i*8-7:i*8,j*8-7:j*8)=round(dct2(hall_gray(i*8-7:i*8,j*8-7:j*8))./QTAB);
-        %zig-zag
-        R(:,i*N-N+j)=zigzag(C(i*8-7:i*8,j*8-7:j*8));
-    end
-end
+function [ACstream,DCstream,m,n]=haff(R,M,N);
 %DC部分
 %差分编码
+m=8*M;n=8*N;
+load('JpegCoeff');
 ERR_DC=[2*R(1,1) R(1,1:N*M-1)]-R(1,:);
 %DC部分的编码
 DCstream=logical([]);
@@ -64,4 +38,4 @@ for i=1:M*N
     end
     ACstream=[ACstream 1 0 1 0]; 
 end
-save jpegcodes.mat DCstream ACstream m n
+return;

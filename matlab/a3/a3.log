@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/dev/Debian) (preloaded format=xelatex 2015.5.23)  22 AUG 2015 21:11
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/dev/Debian) (preloaded format=xelatex 2015.5.23)  29 AUG 2015 20:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1412,26 +1412,37 @@ File: eu1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 . 
 .................................................
  (./zigzag.m)
-(./zigzag.m [8])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 168.
- [9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 168.
+(./zigzag.m [8]) (./a3_2_8.m) (./a3_2_9.m [9] [10])
+File: a3_2_10.jpg Graphic file (type QTm)
+ <use  "a3_2_10.jpg" >
+[11] (./a3_2_10.m [12] [13])
+
+LaTeX Warning: Reference `a312' on page 14 undefined on input line 209.
+
+File: a3_2_12.jpg Graphic file (type QTm)
+<use  "a3_2_12.jpg" > [14]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 223.
+ [15]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 223.
  (./a3.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 168.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 168.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 223.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 223.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.79001pt have occurred.
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 28003 strings out of 495331
- 522720 string characters out of 6181440
- 659996 words of memory out of 5000000
- 30903 multiletter control sequences out of 15000+600000
+ 28075 strings out of 495331
+ 524414 string characters out of 6181440
+ 693213 words of memory out of 5000000
+ 30965 multiletter control sequences out of 15000+600000
  12670 words of font info for 76 fonts, out of 8000000 for 9000
  264 hyphenation exceptions out of 8191
  63i,12n,71p,10339b,1659s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on a3.pdf (9 pages).
+Output written on a3.pdf (15 pages).
