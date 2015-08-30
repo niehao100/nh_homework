@@ -6,10 +6,10 @@ load('JpegCoeff');
 ERR_DC=[2*R(1,1) R(1,1:N*M-1)]-R(1,:);
 %DC部分的编码
 DCstream=logical([]);
-ACstream=logical([]);
 Category_DC=ceil(log2(abs(ERR_DC)+1));
-Size_AC=ceil(log2(abs(R)+1));
 %AC部分
+ACstream=logical([]);
+Size_AC=ceil(log2(abs(R)+1));
 zero16=[1 1 1 1 1 1 1 1 0 0 1];
 for i=1:M*N
     DCstream=[DCstream DCTAB(Category_DC(i)+1,2:1+DCTAB(Category_DC(i)+1,1))];

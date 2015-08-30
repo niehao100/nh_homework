@@ -7,7 +7,7 @@ DC=[];
 %解码至残差
 while(i<=length(DCstream))
     for ca=1:12
-        if((DCstream+DCTAB(ca,1))<=length(DCstream))
+        try
             if(DCstream(i:i+DCTAB(ca,1)-1)==DCTAB(ca,2:1+DCTAB(ca,1)));
                 i=i+DCTAB(ca,1);
                 if(ca==1)
@@ -53,8 +53,8 @@ while(i<=length(ACstream))
             end
         end
         for j=1:160
-            %避免溢出
-            if((i+ACTAB(j,3)-1)<=length(ACstream))
+            %避免溢出,即stream剩余长度比表中对应编码短
+            try
                 if(ACstream(i:i+ACTAB(j,3)-1)==ACTAB(j,4:3+ACTAB(j,3)));
                     i=i+ACTAB(j,3);
                     Run=fix((j-1)/10);

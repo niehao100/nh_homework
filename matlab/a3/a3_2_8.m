@@ -11,6 +11,7 @@ end
 if (N*8~=n)
 hall_gray=[hall_gray;ones((N*8-n),1)*hall_gray(m,:)];
 end
+
 R=zeros(64,M*N);
 hall_gray=hall_gray-128;
 for i=1:M

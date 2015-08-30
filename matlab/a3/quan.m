@@ -2,7 +2,6 @@ function [R,M,N]=quan(to_process)
 %将矩阵量化
 load('JpegCoeff.mat');
 [m,n]=size(to_process);
-%量化矩阵为MxN
 M=ceil(m/8);N=ceil(n/8);
 %转化为double以进行计算
 to_process=double(to_process);

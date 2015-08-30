@@ -9,20 +9,22 @@ DC=[];
 %解码至残差
 while(i<=length(DCstream))
     for ca=1:12
-        if(DCstream(i:i+DCTAB(ca,1)-1)==DCTAB(ca,2:1+DCTAB(ca,1)));
-            i=i+DCTAB(ca,1);
-            if(ca==1)
-                DC=[DC 0];
-                i=i+1;
-                break
-            elseif(DCstream(i)==1)
-                %此处为ca(Category的序号)与数字位数的对应关系
-                DC=[DC bin2dec(num2str(DCstream(i:i+ca-2)))];
-            else
-                DC=[DC -bin2dec(num2str(~DCstream(i:i+ca-2)))];
+        try%可能存在DCstream不够长的情况
+            if(DCstream(i:i+DCTAB(ca,1)-1)==DCTAB(ca,2:1+DCTAB(ca,1)));
+                i=i+DCTAB(ca,1);
+                if(ca==1)
+                    DC=[DC 0];
+                    i=i+1;
+                    break
+                elseif(DCstream(i)==1)
+                    %此处为ca(Category的序号)与数字位数的对应关系
+                    DC=[DC bin2dec(num2str(DCstream(i:i+ca-2)))];
+                else
+                    DC=[DC -bin2dec(num2str(~DCstream(i:i+ca-2)))];
+                end
+                i=i+ca-1;
+                break;
             end
-            i=i+ca-1;
-            break;
         end
     end
 end
@@ -53,7 +55,7 @@ while(i<=length(ACstream))
         end
         for j=1:160
             %避免溢出
-            if((i+ACTAB(j,3)-1)<=length(ACstream))
+            try
                 if(ACstream(i:i+ACTAB(j,3)-1)==ACTAB(j,4:3+ACTAB(j,3)));
                     i=i+ACTAB(j,3);
                     Run=fix((j-1)/10);
