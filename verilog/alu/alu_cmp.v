@@ -1,7 +1,7 @@
 //By Neil 2015/8/21
 module ALUcmp(Z,V,N,ALUFun,cmp);
 input Z,V,N;
-input [3:0]ALUFun;
+input [2:0]ALUFun;
 output reg cmp;
 always @(*) begin
 case (ALUFun)
