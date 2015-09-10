@@ -1,0 +1,73 @@
+%#-*- coding: utf-8 -*-
+\documentclass{ctexart}
+%
+%页眉页脚
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage[colorlinks,linkcolor=black]{hyperref}%书签
+\usepackage{fancyhdr}
+
+\fancyhead[R]{\thepage}%这是奇数页右页眉、偶数页左页眉
+\fancyhead[L]{}
+\chead{MATLAB综合实验之图像处理}%这是中间页眉
+\pagestyle{fancy}
+\lstset{numbers=left,%设置行号位置
+   numberstyle=\tiny, %设置行号大小
+   keywordstyle=\color{blue}, %设置关键字颜色
+   commentstyle=\color[cmyk]{1,0,1,0}, %设置注释颜色
+   frame=single, %设置边框格式
+   breaklines, %自动折行
+   extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+   xleftmargin=1.5em,xrightmargin=1.5em, aboveskip=1em, %设置边距
+   tabsize=4, %设置tab空格数
+   showspaces=false %不显示空格
+}
+%中文
+\usepackage{xeCJK}
+%字体设置
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}%首行缩进
+\renewcommand\thesubsection{(\arabic{subsection})}
+\renewcommand\thesubsubsection{(\alph{subsubsection})}
+
+\title{MATLAB综合实验之连连看\footnote{所有的.m文件均采用utf8编码，windows版matlab中打开可能会出现中文乱码的情况，请用其它编辑器打开}}
+\author{聂浩~~无31~~ 2013011280}
+\date{\today}
+\begin{document}
+\maketitle
+\section{制作自己的连连看}
+\subsection{
+MBATLAB 为 环境下，设置当前路径为  linkgame行 ，运行  linkgame （打开
+linkgame.fig键 或右键 p linkgame.p  点“运行” ） ，熟悉游戏。 （上述程序己经过
+的测试。）}
+\subsection{
+注意linkgame目录下有个detect.p。它的功能是检测块是否可以消除。
+现在请你把它移动到其他文件夹或删掉!把然后把linkgame\\reference目录
+下的detect.m复制到linkgame。目录下。detect.m文件中是tdetect函数，
+函数以图像块的索号矩阵与要判断的两个块的下标为输入，如果两个块能消掉则
+输出11，否则输出00。请根据文件中的注释提示，实现判断块是否可以消除的功
+能。写完后再次运行linkgame，检验游戏是否仍然可以正确运行，当你的程序
+的判断结果有误时，在游戏界面右下角会有提示。（注意：当detect.p文件存
+在时，detect.m文件将不会被执行，所以测试时一定要移走detect.p）}
+利用讲义中的十字判断法进行了判断，值得说明的是边缘检测是比较麻烦的，另外判断两个块相等才能够进行下一步判断，这是我开始时忘记的。这里的解决方案可见check.m
+代码如下：
+detect.m
+\lstinputlisting{linkgame/detect.m}
+check.m
+\lstinputlisting{linkgame/check.m}
+\subsection{
+你一定发现了“外挂”模式，是不是很有趣？逐一自动消除所有的块的功
+由能是由link的目录的omg.p实现的。现在请你把它也删掉！然后把
+link\\reference目录下的omg.m复制到link目录下。omg.m文件的注释中对
+输入输出变量做了详细说明，请以这个文件为基础，实现逐一自动消除所有块的
+功能。（同上题要移走omg.p文件。）写完后再次运行linkgame，检验自动模
+式是否正确。（在自动点击过程中可接F12）
+}
+这里有两种思路，一种是从外圈逐渐向内消，另一种是
