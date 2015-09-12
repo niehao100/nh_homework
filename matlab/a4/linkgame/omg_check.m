@@ -22,7 +22,6 @@ function bo = omg_check(mtx)
     
     %% --------------  请在下面加入你的代码 O(∩_∩)O~  ------------
     
-    steps(1) = 0;
     mtx_tmp=zeros(size(mtx));
     siz=max(max(mtx));
     count=0;
@@ -32,9 +31,8 @@ function bo = omg_check(mtx)
             for j=1:length(m)
                 for k=j+1:length(n)   
                     if mtx(m(j),n(j))~=0&&mtx(m(k),n(k))~=0;
-                        if detect(mtx,m(j),n(j),m(k),n(k))==1
+                       if detect(mtx,m(j),n(j),m(k),n(k))==1
                             count=count+1;
-                            
                             mtx(m(j),n(j))=0;
                             mtx(m(k),n(k))=0;
                         end
@@ -46,6 +44,7 @@ function bo = omg_check(mtx)
         if(mtx_tmp==mtx)
             bo=0;
             return;
+        end
         mtx_tmp=mtx;%避免死循环
     end
     bo=1;

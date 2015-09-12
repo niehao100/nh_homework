@@ -1,45 +1,69 @@
 clear;clc;close all;
 img=imread('graygroundtruth.jpg');
-[m,n]=size(img);
 
-aver_row=mean(img,1);
+high_pass_1=fir1(22,0.5,'high');
+[imp,n]=impz(high_pass_1);
+stem(n,imp);
+len=length(imp);
+[~,max_i]=max(imp);
+tmp_r=repmat(1:len,len,1)-max_i;
+tmp_c=repmat((1:len)',1,len)-max_i;
+tmp=round(sqrt(tmp_r.^2+tmp_c.^2));
+t_i=find(tmp>len/2);
+tmp(t_i)=max_i-1;
+high_pass_2=imp(max_i-tmp);
+figure;
+img_div=conv2(img-128,high_pass_2,'same');
+
+[m,n]=size(img);
+aver_row=mean(img_div,1);
 aver_row=aver_row-mean(aver_row);
 subplot(2,1,1)
 plot((1:n),aver_row);
 hold;
-[t,omg,FT,IFT] = prefourier([0,n-1],n,[0,0.3],n);
-F_row=FT*aver_row';
-[value,index]=max(abs(F_row));
-an=abs(angle(F_row(index)));
-left=an/omg(index)
-width=2*pi/omg(index)
-plot((1:n),255*cos(omg(index)*(1:n)+an),'r');
+L=length(aver_row);
+NFFT=2^nextpow2(L);
+F_row=fft(aver_row,NFFT)/L;
+nf=NFFT/2+1;
+f= 1/2*linspace(0,1,nf);
+reso=1/2/nf;
+[value,index]=max(abs(F_row(f<0.02)));
+an=angle(F_row(index));
+left=(pi-an)/2/pi/f(index)
+width=1/f(index)
+plot((1:n),255*cos(2*pi*f(index)*(1:n)+an),'r');
 subplot(2,1,2);
-plot(omg,abs(F_row));
+plot(f(f<0.02),abs(F_row(f<0.02)));
 title('Fourier for average of rows')
 
 figure
-aver_column=mean(img,2);
-aver_column=(aver_column-mean(aver_column))';
+aver_column=mean(img_div,2);
+aver_column=aver_column-mean(aver_column);
 subplot(2,1,1)
 plot((1:m),aver_column);
 hold;
-[t,omg,FT,IFT] = prefourier([0,m-1],m,[0,0.3],m);
-F_column=FT*aver_column';
-[value,index]=max(abs(F_column));
-an=abs(angle(F_column(index)));
-top=an/omg(index)
-height=2*pi/omg(index)
-plot((1:m),255*cos(omg(index)*(1:m)+an),'r');
+L=length(aver_column);
+NFFT=2^nextpow2(L);
+F_column=fft(aver_column,NFFT)/L;
+nf=NFFT/2+1;
+f= 1/2*linspace(0,1,nf);
+reso=1/2/nf;
+[value,index]=max(abs(F_column(f<0.02)));
+an=angle(F_column(index));
+top=(pi-an)/2/pi/f(index)
+height=1/f(index)
+plot((1:m),255*cos(2*pi*f(index)*(1:m)+an),'r');
 subplot(2,1,2);
-plot(omg,abs(F_column));
+plot(f(f<0.02),abs(F_column(f<0.02)));
 title('Fourier for average of rows')
 
 figure
+
+
 width=round(width);
 height=round(height);
-left=round(left);
 top=round(top);
+left=round(left);
 c_count=fix((n-left)/width);
 r_count=fix((m-top)/height);
 imshow(img);
@@ -61,4 +85,4 @@ for i=1:r_count
         imshow(uint8(pic(:,:,j+(i-1)*c_count)));
     end
 end
-save graygroundturth
+save graygroundtruth

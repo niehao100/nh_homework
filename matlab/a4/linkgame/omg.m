@@ -23,7 +23,7 @@ function steps = omg(mtx)
     %% --------------  请在下面加入你的代码 O(∩_∩)O~  ------------
     
     steps(1) = 0;
-    mtx_tmp=[];
+    mtx_tmp=mtx;
     size=max(max(mtx));
     count=0;
     while(size~=0)
@@ -44,6 +44,7 @@ function steps = omg(mtx)
         end
         size=max(max(mtx));
         if(mtx_tmp==mtx) break;
+        end
         mtx_tmp=mtx;%避免死循环
     end
     steps(1)=count;

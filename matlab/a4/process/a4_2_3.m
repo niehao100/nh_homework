@@ -24,13 +24,15 @@ for i=1:r_count*c_count
 end
 
 corr=zeros(r_count*c_count,c_count*r_count);
-size=r_count*c_count;
-for i=1:size
-    for j=i+1:size
+siz=r_count*c_count;
+for i=1:siz
+    for j=1:siz
+        if i~=j
         corr(j,i)=max(max(normxcorr2(pic_div(:,:,i),pic_div(:,:,j))));
+        end
     end
 end
-
+corr=max(corr,corr');
 siz=r_count*c_count;
 corr_tmp=reshape(corr,[],1);
 [value,index]=sort(corr_tmp,'descend');
