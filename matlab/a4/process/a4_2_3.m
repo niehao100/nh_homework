@@ -15,7 +15,7 @@ tmp(t_i)=max_i-1;
 high_pass_2=imp(max_i-tmp);
 figure;
 mesh(high_pass_2);
-
+figure;
 pic_div=zeros(height,width,r_count*c_count);
 for i=1:r_count*c_count
     pic_div(:,:,i)=conv2(pic(:,:,i)-128,high_pass_2,'same');
@@ -36,26 +36,14 @@ corr=max(corr,corr');
 siz=r_count*c_count;
 corr_tmp=reshape(corr,[],1);
 [value,index]=sort(corr_tmp,'descend');
-for i=1:10
-a=fix((index(i)-1)/siz)+1;
-b=mod(index(i)-1,siz)+1;
-subplot(2,10,i);
-imshow(uint8(pic(:,:,a)));
-title(value(i))
-subplot(2,10,i+10);
-imshow(uint8(pic(:,:,b)));
+for i=1:2:20%因为每个值存了两次
+    a=fix((index(i)-1)/siz)+1;
+    b=mod(index(i)-1,siz)+1;
+    subplot(2,10,(i+1)/2);
+    imshow(uint8(pic(:,:,a)));
+    title(value(i))
+    subplot(2,10,(i+1)/2+10);
+    imshow(uint8(pic(:,:,b)));
 end
-%�˹�ɸѡ�õ�
-figure
-%no_e=[83 101 106 109 112 118 122 132 134 135];
-no_e=[136 156 171 179 180 171 184 186 188 189];
-for i=1:10
-a=fix((index(no_e(i))-1)/siz)+1;
-b=mod(index(no_e(i))-1,siz)+1;
-subplot(2,10,i);
-imshow(uint8(pic(:,:,a)));
-title(value(no_e(i)))
-subplot(2,10,i+10);
-imshow(uint8(pic(:,:,b)));
-end
+
 save corr_capture.mat 

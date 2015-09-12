@@ -4,10 +4,10 @@ load 'corr_capture.mat';
 [m,n]=size(corr);
 mtx=zeros(r_count,c_count);
 tmp=mtx';
- [~,same]=max(corr);
- where=zeros(12*7,1);
+[~,same]=max(corr);
+where=zeros(12*7,1);
 A=repmat({[]},12*7,1);
-for i=1:n
+for i=1:n%最大值匹配
     j=min(i,same(i));
     k=max(i,same(i));
     if where(j)~=0 && where(k)~=0 
@@ -31,14 +31,10 @@ for i=1:n
             end
         end
     end
-      
- end
-%     r_a=fix((i-1)/c_count)+1;
-%     c_a=mod(i-1,c_count)+1;
-%     r_b=fix((index-1)/c_count)+1;
-%     c_b=mod(index-1,c_count)+1;
-[m,n]=find(corr>0.773);
-for i=1:length(m)
+
+end
+[m,n]=find(corr>0.77);
+for i=1:length(m)%阈值匹配
     mi=min(m(i),n(i));
     ma=max(m(i),n(i));
     if where(m(i))~=where(n(i))
@@ -46,10 +42,10 @@ for i=1:length(m)
         A{max(where(mi),where(ma))}=[];
         where(ma)=where(mi);
     end
-        
+
 end
 type=1;
-for i=1:84
+for i=1:84%mtx赋值
     B=unique(A{i});
     if B
         r_a=fix((B-1)/c_count)+1;
@@ -61,7 +57,7 @@ for i=1:84
     end
 end
 count=max(max(mtx));
-for i=1:count
+for i=1:count%显示各种块的标号
     t=reshape(mtx',1,[]);
     in=find(t==i);
     subplot(3,8,i);

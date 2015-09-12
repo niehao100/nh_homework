@@ -11,7 +11,7 @@ function [bool]=check(x,y,mtx,m,n)
             return
         end
     end
-    %±ßÔµ
+    %è¾¹ç¼˜
     if (x(1)==1&&x(2)==1)||(x(1)==m&&x(2)==m)||(y(1)==1&&y(2)==1)||(y(1)==n&&y(2)==n)
             bool=1;
             return;
