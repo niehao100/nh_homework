@@ -1,21 +1,21 @@
 function bool = detect(mtx, x1, y1, x2, y2)
-    % ========================== ²ÎÊýËµÃ÷ ==========================
+    % ========================== å‚æ•°è¯´æ˜Ž ==========================
 
-    % ÊäÈë²ÎÊýÖÐ£¬mtxÎªÍ¼Ïñ¿éµÄ¾ØÕó£¬ÀàËÆÕâÑùµÄ¸ñÊ½£º
+    % è¾“å…¥å‚æ•°ä¸­ï¼Œmtxä¸ºå›¾åƒå—çš„çŸ©é˜µï¼Œç±»ä¼¼è¿™æ ·çš„æ ¼å¼ï¼š
     % [ 1 2 3;
     %   0 2 1;
     %   3 0 0 ]
-    % ÏàÍ¬µÄÊý×Ö´ú±íÏàÍ¬µÄÍ¼°¸£¬0´ú±í´Ë´¦Ã»ÓÐ¿é¡£
-    % ¿ÉÒÔÓÃ[m, n] = size(mtx)»ñÈ¡ÐÐÊýºÍÁÐÊý¡£
-    % (x1, y1)Óë£¨x2, y2£©ÎªÐèÅÐ¶ÏµÄÁ½¿éµÄÏÂ±ê£¬¼´ÅÐ¶Ïmtx(x1, y1)Óëmtx(x2, y2)
-    % ÊÇ·ñ¿ÉÒÔÏûÈ¥¡£
+    % ç›¸åŒçš„æ•°å­—ä»£è¡¨ç›¸åŒçš„å›¾æ¡ˆï¼Œ0ä»£è¡¨æ­¤å¤„æ²¡æœ‰å—ã€‚
+    % å¯ä»¥ç”¨[m, n] = size(mtx)èŽ·å–è¡Œæ•°å’Œåˆ—æ•°ã€‚
+    % (x1, y1)ä¸Žï¼ˆx2, y2ï¼‰ä¸ºéœ€åˆ¤æ–­çš„ä¸¤å—çš„ä¸‹æ ‡ï¼Œå³åˆ¤æ–­mtx(x1, y1)ä¸Žmtx(x2, y2)
+    % æ˜¯å¦å¯ä»¥æ¶ˆåŽ»ã€‚
 
-    % ×¢Òâmtx¾ØÕóÓëÓÎÏ·ÇøÓòµÄÍ¼Ïñ²»ÊÇÎ»ÖÃ¶ÔÓ¦¹ØÏµ¡£ÏÂ±ê(x1, y1)ÔÚÁ¬Á¬¿´½çÃæÖÐ
-    % ´ú±íµÄÊÇÒÔ×óÏÂ½ÇÎªÔ­µã½¨Á¢×ø±êÏµ£¬xÖá·½ÏòµÚx1¸ö£¬yÖá·½ÏòµÚy1¸ö
+    % æ³¨æ„mtxçŸ©é˜µä¸Žæ¸¸æˆåŒºåŸŸçš„å›¾åƒä¸æ˜¯ä½ç½®å¯¹åº”å…³ç³»ã€‚ä¸‹æ ‡(x1, y1)åœ¨è¿žè¿žçœ‹ç•Œé¢ä¸­
+    % ä»£è¡¨çš„æ˜¯ä»¥å·¦ä¸‹è§’ä¸ºåŽŸç‚¹å»ºç«‹åæ ‡ç³»ï¼Œxè½´æ–¹å‘ç¬¬x1ä¸ªï¼Œyè½´æ–¹å‘ç¬¬y1ä¸ª
 
-    % Êä³ö²ÎÊýbool = 1±íÊ¾¿ÉÒÔÏûÈ¥£¬bool = 0±íÊ¾²»ÄÜÏûÈ¥¡£
+    % è¾“å‡ºå‚æ•°bool = 1è¡¨ç¤ºå¯ä»¥æ¶ˆåŽ»ï¼Œbool = 0è¡¨ç¤ºä¸èƒ½æ¶ˆåŽ»ã€‚
 
-    %% ÔÚÏÂÃæÌí¼ÓÄãµÄ´úÂëO(¡É_¡É)O
+    %% åœ¨ä¸‹é¢æ·»åŠ ä½ çš„ä»£ç O(âˆ©_âˆ©)O
         [m, n] = size(mtx);
         x=[x1 x2];
         y=[y1 y2];
@@ -29,7 +29,7 @@ function bool = detect(mtx, x1, y1, x2, y2)
         end
 
         bool = 0;
-        %Ö±ÏßÇé¿ö
+        %ç›´çº¿æƒ…å†µ
         if x1==x2
             if sum(mtx(x1,y_min:y_max))==(mtx(x1,y1)+mtx(x2,y2))
                 bool=1;
@@ -42,7 +42,7 @@ function bool = detect(mtx, x1, y1, x2, y2)
                 return
             end     
         end
-        %µ¥ÕÛÏßÇé¿öºÍ±ßÔµ
+        %å•æŠ˜çº¿æƒ…å†µå’Œè¾¹ç¼˜
         if (sum(mtx(1:x(1),y(1)))==mtx(x(1),y(1))&&sum(mtx(1:x(2),y(2)))==mtx(x(2),y(2)))
             bool=1;
             return;
@@ -63,7 +63,7 @@ function bool = detect(mtx, x1, y1, x2, y2)
             bool=1;
             return;
         end
-        %Ë«ÕÛÏßx·½Ïò
+        %åŒæŠ˜çº¿xæ–¹å‘
         s=0;
         x_tmp=x;
         for i=x_min-1:-1:1

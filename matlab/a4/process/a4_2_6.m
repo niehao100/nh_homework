@@ -39,7 +39,7 @@ while(siz~=0)
     if(mtx_tmp==mtx)
         break;
     end
-    mtx_tmp=mtx;%±ÜÃâËÀÑ­»·
+    mtx_tmp=mtx;%é¿å…æ­»å¾ªç¯
 end
 
 

@@ -5,7 +5,6 @@ img=perspective(img);
 
 high_pass_1=fir1(22,0.5,'high');
 [imp,n]=impz(high_pass_1);
-stem(n,imp);
 len=length(imp);
 [~,max_i]=max(imp);
 tmp_r=repmat(1:len,len,1)-max_i;
@@ -58,7 +57,7 @@ height=1/f(index)
 plot((1:m),255*cos(2*pi*f(index)*(1:m)+an),'r');
 subplot(2,1,2);
 plot(f(f<0.02),abs(F_column(f<0.02)));
-title('Fourier for average of rows')
+title('Fourier for average of columns')
 
 
 figure

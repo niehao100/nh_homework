@@ -1,6 +1,6 @@
 clear;clc;close all;
 img=imread('graygroundtruth.jpg');
-
+%利用高通滤波器进行处理
 high_pass_1=fir1(22,0.5,'high');
 [imp,n]=impz(high_pass_1);
 stem(n,imp);
@@ -14,7 +14,7 @@ tmp(t_i)=max_i-1;
 high_pass_2=imp(max_i-tmp);
 figure;
 img_div=conv2(img-128,high_pass_2,'same');
-
+%行处理
 [m,n]=size(img);
 aver_row=mean(img_div,1);
 aver_row=aver_row-mean(aver_row);
@@ -35,7 +35,7 @@ plot((1:n),255*cos(2*pi*f(index)*(1:n)+an),'r');
 subplot(2,1,2);
 plot(f(f<0.02),abs(F_row(f<0.02)));
 title('Fourier for average of rows')
-
+%列处理
 figure
 aver_column=mean(img_div,2);
 aver_column=aver_column-mean(aver_column);
@@ -55,10 +55,9 @@ height=1/f(index)
 plot((1:m),255*cos(2*pi*f(index)*(1:m)+an),'r');
 subplot(2,1,2);
 plot(f(f<0.02),abs(F_column(f<0.02)));
-title('Fourier for average of rows')
+title('Fourier for average of columns')
 
 figure
-
 
 width=round(width);
 height=round(height);
@@ -68,6 +67,7 @@ c_count=fix((n-left)/width);
 r_count=fix((m-top)/height);
 imshow(img);
 hold on;
+%用红线分割
 for i=0:r_count
     plot(left:left+c_count*width,top+height*i,'r');
 end
@@ -75,7 +75,7 @@ hold on;
 for i=0:c_count
     plot(left+width*i,top:top+height*r_count,'r');
 end
-
+%切割
 figure
 pic=zeros(height,width,r_count*c_count);
 for i=1:r_count
