@@ -23,7 +23,7 @@ module Control(OpCode,  Funct, irq , reset,
  output reg ExtOp;
  output reg LuOp;
 
- //  缁鎶€娴滃孩鎳囩亸鏃€婧€閿涘本鏌熸笟鎸庢暭娑撳搫顦块崨銊︽埂
+ 
  initial begin
      PCSrc       <=   3'b0;
      RegDst      <=   2'b0;
@@ -54,7 +54,7 @@ module Control(OpCode,  Funct, irq , reset,
      ExtOp       <=   1'b1;
      LuOp        <=   1'b0;
      if(reset==1) begin
-         if(irq==1) begin//娑擃厽鏌                
+         if(irq==1) begin//              
 					 PCSrc<=3'b100;
            RegDst<=2'b11;
            RegWrite<=1'b1;
@@ -62,7 +62,7 @@ module Control(OpCode,  Funct, irq , reset,
          end
          else begin
              case(OpCode)
-                 6'b0: begin//R閸ㄥ瀵氭禒                     
+                 6'b0: begin//                 
                  RegWrite    <= 1'b1;                    
 							case( Funct )
                          6'h20:begin//add
@@ -231,7 +231,8 @@ module Control(OpCode,  Funct, irq , reset,
                      RegDst<=2'b10;
                  end 
 
-                 default: begin//閺冪姵瀵氭禒銈呯磽鐢                    PCSrc<=3'b101;
+                 default: begin                    
+					PCSrc<=3'b101;
                      RegDst<=2'b11;
                      RegWrite<=1'b1;
                      MemtoReg<=2'b10;
@@ -243,53 +244,4 @@ module Control(OpCode,  Funct, irq , reset,
 endmodule
 
 
-/*
-
-assign 	PCSrc[1:0]=
-(OpCode == 6'h02 || OpCode==6'h03)?2'b01:
-(OpCode==0&&(Funct==6'h08 || Funct==6'h09))?2'b10:
-0;
-
-
-assign RegWrite=
-(OpCode== 6'h2b || OpCode== 6'h04 || OpCode==6'h02)?0:
-(Funct == 6'h08 && OpCode==0)?0:1;
-
-assign RegDst=
-(OpCode== 6'h03)?2'b10:
-(OpCode== 6'h00)?2'b01:
-2'b00;
-
-assign MemRead=
-(OpCode== 6'h23)?1:0;
-
-assign MemWrite=
-(OpCode== 6'h2b)?1:0;
-
-assign MemtoReg=
-(OpCode== 6'h03 || Funct==6'h09)?2'b10:
-(OpCode== 6'h23)?1:0;
-
-assign ALUSrc1=
-(OpCode==0 && (Funct==6'h02 || Funct==6'h03 || Funct==0))?1:0;
-assign ALUSrc2=
-(OpCode==0 || OpCode==6'h04)?0:1;
-
-assign ExtOp=
-(OpCode==6'h0c)?0:1;
-
-assign LuOp=
-(OpCode==6'h0f)?1:0;
-
-// Your code above
-
-assign ALUOp[2:0] = 
-(OpCode == 6'h00)? 3'b010: 
-(OpCode == 6'h04)? 3'b001: 
-(OpCode == 6'h0c)? 3'b100: 
-(OpCode == 6'h0a || OpCode == 6'h0b)? 3'b101: 
-3'b000;
-
-assign ALUOp[3] = OpCode[0];
-*/
 

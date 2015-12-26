@@ -43,7 +43,7 @@ fp.close()
 fp = open("code.asm","r")
 add = 0
 ILLOP = int('80000004',16)
-XADR = int('80000008',16)
+XADR = int('80000020',16)
 for line in fp:
 	i += 1
 	place = line.find(':')

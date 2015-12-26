@@ -9,7 +9,7 @@ module PC(clk,reset,ALUOut0,ConBA,DatabusA,JT,PCSrc,PC);
   wire [31:0]PC_add_4;
   output reg[31:0] PC;
   parameter ILLOP=32'h8000_0004;
-  parameter XADR=32'h8000_0008;
+  parameter XADR=32'h8000_0020;
 initial 
 PC=32'b0;
   assign PC_add_4=PC+32'd4;//为了保证PC最高位不变

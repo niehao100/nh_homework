@@ -1,5 +1,5 @@
 //by Neil 2015/9/2
-//CPU  闂備焦鐪归崝宀€鈧矮鍗虫俊瀛樼節閸曨亝鍕冮梺绋挎湰娑撹绗熼埀顒€鐣风粩濡昳mescale 1ns/1ps
+//CPU  
 module cpu(sysclk,reset,switch,digi_out1,digi_out2,digi_out3,digi_out4,led,UART_RXD,UART_TXD);
 input sysclk,reset;
 input [7:0]switch;

@@ -1,0 +1,1 @@
+"D:\Program Files (x86)\Windows Kits\10\Debuggers\x64\windbg.exe"  -b -k com:pipe,port=\\.\pipe\debug,baud=115200,reconnect -W test

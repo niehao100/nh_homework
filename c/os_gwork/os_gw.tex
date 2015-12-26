@@ -1,0 +1,128 @@
+%#-*- coding: utf-8 -*-
+\input{nh}
+\title{AVL树->红黑树问题}
+\author{聂浩~~无31~~ 2013011280}
+\date{\today}
+\begin{document}
+\maketitle
+\section{实验内容}
+在Windows的虚拟内存管理中，将VAD组织成AVL树。VAD树是一种平衡二叉树。
+
+红黑树也是一种自平衡二叉查找树，在Linux 2.6及其以后版本的内核中，采用红黑树来维护内存块。
+
+请尝试参考Linux源代码将WRK源代码中的VAD树由AVL树替换成红黑树。
+
+\section{实验思路}
+红黑树与AVL的查找基本是一致的，不需要太多的修改。
+
+插入与删除函数通过对linux(v4.4-rc6)与WRK1.2的分析。利用用linux的红黑树代码替换WRK中的AVL管理。
+\subsection{Linux中的红黑树}
+Linux中，虚拟内存管理的VAD由红黑树实现。
+
+红黑树是一种在插入或删除节点是都需要维持平衡的二叉查找树，且每个节点都具有颜色属性:
+\begin{enumerate}
+    \item{一个结点要么是红色的，要么是黑色的。}
+    \item{根结点是黑色的。}
+    \item{如果一个结点是红色的，那么它的子结点必须是黑色的，也就是说在沿着从根结点出发的任何路径上都不会出现两个连续的红色结点。}
+    \item{从一个结点到一个NULL指针的每条路径上必须包含相同数目的黑色结点。}
+\end{enumerate}
+
+本次实验使用Linux Kernel 4.4-rc6版本。
+
+linux内核源代码中，红黑树的定义在三个地方，分别是
+\begin{itemize}
+    \item{include/linux/rbtree.h}
+    \item{include/linux/rbtree\_augmented.h}
+    \item{lib/rbtree.c}
+\end{itemize}
+
+其中红黑树节点的定义为：
+\begin{lstlisting}[language=C]
+
+struct rb_node {
+	unsigned long  __rb_parent_color;
+	struct rb_node *rb_right;
+	struct rb_node *rb_left;
+} __attribute__((aligned(sizeof(long))));
+    /* The alignment might seem pointless, but allegedly CRIS needs it */
+
+struct rb_root {
+	struct rb_node *rb_node;
+};
+\end{lstlisting}
+
+有意思的是，这里使用了\_\_attribute\_\_((aligned(sizeof(long)))),使得结构体进行4字节大小对齐（32位系统），因此地址最低两位始终是00，linux使用其中的最低一位表示红黑树节点的颜色。
+
+基于此linux定义了一些基本操作（在rbtree\_augmented.c中）：
+
+\begin{lstlisting}[language=C]
+\\在rbtree.h中
+#define rb_parent(r)   ((struct rb_node *)((r)->__rb_parent_color & ~3))
+\\在rbtree_augmented.c
+#define	RB_RED		0
+#define	RB_BLACK	1
+
+#define __rb_parent(pc)    ((struct rb_node *)(pc & ~3))
+
+#define __rb_color(pc)     ((pc) & 1)
+#define __rb_is_black(pc)  __rb_color(pc)
+#define __rb_is_red(pc)    (!__rb_color(pc))
+#define rb_color(rb)       __rb_color((rb)->__rb_parent_color)
+#define rb_is_red(rb)      __rb_is_red((rb)->__rb_parent_color)
+#define rb_is_black(rb)    __rb_is_black((rb)->__rb_parent_color)
+
+static inline void rb_set_parent(struct rb_node *rb, struct rb_node *p)
+{
+	rb->__rb_parent_color = rb_color(rb) | (unsigned long)p;
+}
+//设置父节点的同时设置自己的颜色
+static inline void rb_set_parent_color(struct rb_node *rb,
+				       struct rb_node *p, int color)
+{
+	rb->__rb_parent_color = (unsigned long)p | color;
+}
+
+static inline void
+__rb_change_child(struct rb_node *old, struct rb_node *new,
+		  struct rb_node *parent, struct rb_root *root)
+{
+	if (parent) {
+		if (parent->rb_left == old)
+			WRITE_ONCE(parent->rb_left, new);
+            \\WRITE_ONCE(a,b)=>a=b;
+		else
+			WRITE_ONCE(parent->rb_right, new);
+	} else
+		WRITE_ONCE(root->rb_node, new);
+}
+\\在rbtree.c中，为旋转做准备
+static inline void
+__rb_rotate_set_parents(struct rb_node *old, struct rb_node *new,
+			struct rb_root *root, int color)
+{
+	struct rb_node *parent = rb_parent(old);
+	new->__rb_parent_color = old->__rb_parent_color;
+	rb_set_parent_color(old, new, color);
+	__rb_change_child(old, new, parent, root);
+}
+
+\end{lstlisting}
+
+linux红黑树的插入：具体调用为rb\_insert\_color,然后再调用内部函数\_\_rb\_insert,这里代码太长不在此处展示，具体代码可见rbtree.c函 数。
+需要注意的是，linux的插入函数处理的是节点已经添加在树上后的平衡过程。root指向红黑树的根节点，但是根节点的parent指向NULL。
+
+linux红黑树的删除：具体调用rb\_erase函数，内容如下:
+
+\begin{lstlisting}[language=C]
+void rb_erase(struct rb_node *node, struct rb_root *root)
+{
+	struct rb_node *rebalance;
+	rebalance = __rb_erase_augmented(node, root, &dummy_callbacks);
+	if (rebalance)
+		____rb_erase_color(rebalance, root, dummy_rotate);
+}
+EXPORT_SYMBOL(rb_erase);
+
+\_\_rb\_erase\_augmented用于
+\end{lstlisting}
+\end{document}
