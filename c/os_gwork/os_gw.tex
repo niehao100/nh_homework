@@ -688,9 +688,9 @@ static void
 即可完成移植
 \section{实验结果}
 到此为止，代码移植工作已经完成，编译好后(nmake -nologo x86=)复制到虚拟机（Windows Server 2003 SP2）的 C:/Windows/system32 文件夹，设置好主机的WinDbg\footnote{见debug.bat文件,需先导入debug.WEW}调试器和虚拟机的启动引导信息\footnote{boot.in 增加信息multi(0)disk(0)rdisk(0)partition(1)
-\textbackslash WINDOWS="Debug" /kernel=wrkx86.exe /hal=halmacpi.dll /debug /debugport=com1 /baudrate=115200}，然互选择Debug引导启动,如图\ref{boot}。
+\textbackslash WINDOWS="Debug" /kernel=wrkx86.exe /hal=halmacpi.dll /debug /debugport=com1 /baudrate=115200}，然互选择Debug引导启动,如图\autoref{boot}。
 
-一切正常则能够正常进入系统，并可以正常操作，如图\ref{video}。通过WinDbg可以发现，在系统的初始或与平常使用中，虚拟内存管理是一直使用的，在对该红黑树在不断的插入与删除节点，所以系统可以稳定运行就意味着没有bug。
+一切正常则能够正常进入系统，并可以正常操作，如图\autoref{video}。通过WinDbg可以发现，在系统的初始或与平常使用中，虚拟内存管理是一直使用的，在对该红黑树在不断的插入与删除节点，所以系统可以稳定运行就意味着没有bug。
 
 \begin{figure}
     \centering
