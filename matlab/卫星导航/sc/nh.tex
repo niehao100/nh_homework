@@ -1,0 +1,45 @@
+\documentclass{ctexart}
+%
+%页眉页脚
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{enumerate}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage[colorlinks,linkcolor=black]{hyperref}%书签
+\usepackage{fancyhdr}
+
+\fancyhead[R]{\thepage}%这是奇数页右页眉、偶数页左页眉
+\fancyhead[L]{}
+\chead{全球导航卫星系统基础}%这是中间页眉
+\pagestyle{fancy}
+\lstset{
+    extendedchars=false, %解决代码跨页时，章节标题，页眉等汉字不显示的问题
+    xleftmargin=1.5em,xrightmargin=1.5em, aboveskip=1em, %设置边距
+    language=Matlab,
+    basicstyle = \footnotesize,
+    breaklines,
+    captionpos = t,
+    commentstyle = \color[rgb]{0,0.5,0},
+    frameshape = {RYRYNYYYY}{yny}{yny}{RYRYNYYYY},
+    keywordstyle = \color{blue}\bfseries,
+    numbers = left,
+    numberstyle = \tiny\color[rgb]{0.5,0.5,0.5},
+    showstringspaces = false,
+    stringstyle = \color[rgb]{0.58,0,0.82},
+    tabsize = 4,
+    title = \lstname
+}
+%中文
+\usepackage{xeCJK}
+%字体设置
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}%首行缩进
+\renewcommand\thesubsection{\alph{subsection}}
+\renewcommand\thesubsubsection{\alph{subsubsection}}
+\CTEXsetup[format={\Large\bfseries}]{section}
