@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################################################
 do_login() {
-     login_data='***************'
+     login_data='action=login&username=nh13&password={MD5_HEX}&ac_id=1'
 
 	# check whether already online
 		# start login

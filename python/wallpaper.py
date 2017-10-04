@@ -6,7 +6,7 @@ import urllib,re,sys,os
 def get_bing_backphoto():
     if (os.path.exists('photos')== False):
         os.mkdir('photos')
-
+    Path=sys.path[0]
     for i in range(0,1):
         url = 'http://cn.bing.com/HPImageArchive.aspx?format=js&idx='+str(i)+'&n=1&nc=1361089515117&FORM=HYLH1'
         html = urllib.urlopen(url).read()
@@ -19,9 +19,9 @@ def get_bing_backphoto():
         for imgurl in text:
             right = imgurl.rindex('/')
             name = imgurl.replace(imgurl[:right+1],'')
-            savepath = 'photos/'+ name
+            savepath = Path+'/photos/'+ name
             urllib.urlretrieve(imgurl, savepath)
-            cmd="/usr/bin/gsettings set org.gnome.desktop.background picture-uri "+savepath
+            cmd="/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///"+savepath
             os.system(cmd)
             print name + ' save success!'
 
