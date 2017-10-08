@@ -29,6 +29,8 @@ class People(object):
         for new in news_tmp:
             news = news + ";" + new.text
         s = self.html[0].text
+        self.details["all"] = s
+        self.details["url"] = url
         s = s.replace('。','。\n')
         titles = re.findall("\n.+?：",s)
         details = re.split("\n.+?：", s)
