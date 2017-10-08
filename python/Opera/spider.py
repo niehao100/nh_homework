@@ -11,10 +11,13 @@ def get_html(url):
     return r
 
 
-class People:
-    details = []
+class People(object):
+    details = {}
     html = ""
     url = ""
+
+    def __init__(self):
+        self.details = {}
 
     def update_url(self, url):
         self.url = url
@@ -34,22 +37,36 @@ class People:
             if(detail == '\n'):
                 details.remove(detail)
         for i in range(0,len(details)):
-            self.details.append({'key':titles[i],'value':details[i]})
+            title = titles[i].replace('\n', '')
+            title = title.replace('：', '')
+            title = title.replace('\xa0', '')
+            title = title.replace('\u3000', '')
+            detail = details[i].replace('\n', '')
+            detail = detail.replace('\r', '')
+            detail = detail.replace('\xa0', '')
+            detail = detail.replace(' ', '')
+            self.details[title] = detail
+
+
+def get_artists(url, plist):
+    html = get_html(url)
+    soup = BeautifulSoup(html.data,from_encoding="gb18030")
+    ulist = soup.find_all("a", {"class": "c963"})
+    for u in ulist:
+        p_t = People()
+        p_t.update_url("http://www.jingju.com/" + u['href'])
+        plist.append(p_t.details)
 
 
 if __name__ == "__main__":
-    html = get_html("http://www.jingju.com/jingjurenwu/yuantuanmingjia/")
-    soup = BeautifulSoup(html.data,from_encoding="gb18030")
-    ulist = soup.find_all("a", {"class": "c963"})
-    plist =[]
-    for url in ulist:
-        p_t = People()
-        p_t.update_url("http://www.jingju.com/" + url['href'])
-        plist.append(p_t.details)
+    plist = []
+    url = "http://www.jingju.com/jingjurenwu/yuantuanmingjia/"
+    get_artists(url, plist)
+    for i in range(2, 20):
+        get_artists(url+"index_"+str(i)+".html", plist)
+    plist = {'plist': plist}
     j = json.dumps(plist, ensure_ascii=False)
-    f = open("data.json","w")
-    print(j)
-    f.write(j)
-    f.close()
+    with open("data.json", "w") as f:
+        f.write(j)
 
 
