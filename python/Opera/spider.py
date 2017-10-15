@@ -15,6 +15,8 @@ class People(object):
     name = ""
     artname = ""
     birth = ""
+    death = ""
+    school = ""
     details = {}
     relate = []
     html = ""
@@ -30,7 +32,10 @@ class People(object):
         h1 = soup[0].h1.text
         h1 = re.findall("（.*?）", h1)[0]
         self.artname = h1[1:len(h1)-1]
-        namecard = soup.find_all("div", {"class": "namecard"})[0]
+        namecard = soup[0].find_all("div", {"class":"namecard"})[0]
+        self.birth = re.findall("出生：.*?逝世", namecard.text)[0]
+        self.death = re.findall("逝世：.*?人物分类", namecard.text)[0]
+        self.school = re.findall("科班院校.+?\n", namecard.text)[0]
         print(namecard.text)
         s =""
         titles = re.findall("\n.+?：",s)
