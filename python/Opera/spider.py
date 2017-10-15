@@ -12,26 +12,27 @@ def get_html(url):
 
 
 class People(object):
+    name = ""
+    artname = ""
+    birth = ""
     details = {}
+    relate = []
     html = ""
     url = ""
 
     def __init__(self):
         self.details = {}
 
-    def update_url(self, url):
-        self.url = url
-        html_tmp = get_html(url)
-        s_t = BeautifulSoup(html_tmp.data,from_encoding="gb18030")
-        self.html = s_t.find_all("div", {"class": "Rnamer"})
-        news_tmp = s_t.find_all("span", {"class": "Ltxt"})
-        news = ""
-        for new in news_tmp:
-            news = news + ";" + new.text
-        s = self.html[0].text
-        self.details["all"] = s
-        self.details["url"] = url
-        s = s.replace('。','。\n')
+    def update_url(self):
+        html_tmp = get_html(self.url)
+        s_t = BeautifulSoup(html_tmp.data)
+        soup = s_t.find_all("div", {"id": "article"})
+        h1 = soup[0].h1.text
+        h1 = re.findall("（.*?）", h1)[0]
+        self.artname = h1[1:len(h1)-1]
+        namecard = soup.find_all("div", {"class": "namecard"})[0]
+        print(namecard.text)
+        s =""
         titles = re.findall("\n.+?：",s)
         details = re.split("\n.+?：", s)
         details.remove(details[0])
@@ -52,21 +53,21 @@ class People(object):
 
 def get_artists(url, plist):
     html = get_html(url)
-    soup = BeautifulSoup(html.data,from_encoding="gb18030")
-    ulist = soup.find_all("a", {"class": "c963"})
+    soup = BeautifulSoup(html.data)
+    ulist = soup.find_all("li", {"class": "bullet"})
     for u in ulist:
         p_t = People()
-        p_t.update_url("http://www.jingju.com/" + u['href'])
-        plist.append(p_t.details)
+        p_t.url="http://history.xikao.com/" + u.a['href']
+        p_t.name=u.a.text
+        plist.append(p_t)
 
 
 if __name__ == "__main__":
     plist = []
-    url = "http://www.jingju.com/jingjurenwu/yuantuanmingjia/"
-    get_artists(url, plist)
-    for i in range(2, 20):
-        get_artists(url+"index_"+str(i)+".html", plist)
-    plist = {'plist': plist}
+    get_artists("http://history.xikao.com/directory/%E4%BA%AC%E5%89%A7/%E7%94%9F%E8%A1%8C%E6%BC%94%E5%91%98", plist)
+    get_artists("http://history.xikao.com/directory/%E4%BA%AC%E5%89%A7/%E6%97%A6%E8%A1%8C%E6%BC%94%E5%91%98", plist)
+    for i in range(0,1):
+        plist[0].update_url()
     j = json.dumps(plist, ensure_ascii=False)
     with open("data.json", "w") as f:
         f.write(j)
