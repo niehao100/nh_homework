@@ -1,6 +1,6 @@
 clear;
 clc;
-seed=ceil(rand(5,100)*100)+1;
+seed=ceil(sort(rand(5,100)*100,2,'descend'))+1;
 for i=1:5
     D(:,:,i)=diag(seed(1,:));
 end

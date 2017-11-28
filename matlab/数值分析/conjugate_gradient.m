@@ -5,21 +5,27 @@ b = A*x;
 x_k=0;
 %r0
 r = b;
-p=r;
+p = b;
 %k=1
+f=[];
 for k=0:100
     if(r'*r<1e-6)
         k
+        norm(r)
+        plot(f);
         return;
     end
     a=(r'*r)/(p'*(A*p));
     x_k = x_k+a*p;
-    r_tmp = r - a*A*x_k;
-    belta = r'*r/(r_tmp'*r_tmp);
+    r_tmp = r - a*A*p;
+    belta = r_tmp'*r_tmp/(r'*r);
+    f = [f norm(r_tmp)/norm(r)];
     r=r_tmp;
     p = r + belta*p;
 end
-k
+figure;
+norm(r)
+plot(f);
 return;
 end
 
