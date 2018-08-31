@@ -11,7 +11,7 @@ def get_bing_backphoto():
         url = 'http://cn.bing.com/HPImageArchive.aspx?format=js&idx='+str(i)+'&n=1&nc=1361089515117&FORM=HYLH1'
         html = urllib.urlopen(url).read()
         if html == 'null':
-            print 'open & read bing error!'
+            print ('open & read bing error!')
             sys.exit(-1)
         reg = re.compile('"url":"(.*?)","urlbase"',re.S)
         text = re.findall(reg,html)
@@ -19,10 +19,9 @@ def get_bing_backphoto():
         for imgurl in text:
             right = imgurl.rindex('/')
             name = imgurl.replace(imgurl[:right+1],'')
-            savepath = Path+'/photos/'+ name
-            urllib.urlretrieve(imgurl, savepath)
+            savepath = '/home/niehao/photos/'+ name
+            urllib.urlretrieve('http://cn.bing.com/'+imgurl, savepath)
             cmd="/usr/bin/gsettings set org.gnome.desktop.background picture-uri file:///"+savepath
             os.system(cmd)
-            print name + ' save success!'
-
+            print(name + ' save success!')
 get_bing_backphoto()
